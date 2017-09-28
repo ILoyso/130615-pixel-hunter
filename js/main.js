@@ -12,8 +12,6 @@ const showScreen = (number) => {
   mainScreen.innerHTML = screens[number].innerHTML;
 };
 
-showScreen(currentScreen);
-
 const changeScreen = (evt) => {
   if ((evt.altKey) && (evt.keyCode === Key.ARROW_LEFT_KEY_CODE)) {
     if (currentScreen === firstScreen) {
@@ -35,3 +33,5 @@ const changeScreen = (evt) => {
 document.addEventListener(`keydown`, function (evt) {
   changeScreen(evt);
 });
+
+showScreen(currentScreen);
