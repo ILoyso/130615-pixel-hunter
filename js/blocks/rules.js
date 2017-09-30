@@ -43,11 +43,11 @@ const showFirstGame = moduleRules.querySelector(`.rules__button`);
 const inputText = moduleRules.querySelector(`.rules__input`);
 const goBack = moduleRules.querySelector(`.back`);
 
-inputText.addEventListener(`keyup`, function(){
-  if (inputText.value != ``) {
+inputText.addEventListener(`keyup`, function () {
+  if (inputText.value !== ``) {
     showFirstGame.removeAttribute(`disabled`);
   } else {
-    showFirstGame.setAttribute(`disabled`, `disabled`)
+    showFirstGame.setAttribute(`disabled`, `disabled`);
   }
 });
 

@@ -77,7 +77,8 @@ const question2 = moduleFirstGame.querySelectorAll(`input[name=question2]`);
 
 
 const checkAnswers = () => {
-  let result1, result2 = false;
+  let result1 = false;
+  let result2 = false;
   for (let i = 0; i < question1.length; i++) {
     if (question1[i].checked) {
       result1 = true;
