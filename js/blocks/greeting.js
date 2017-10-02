@@ -29,9 +29,8 @@ const greetingStr = String.raw`<div class="greeting central--blur">
 const moduleGreeting = createElement(greetingStr);
 const showRules = moduleGreeting.querySelector(`.greeting__continue`);
 
-showRules.addEventListener(`click`, function () {
+showRules.addEventListener(`click`, () => {
   showScreen(moduleRules);
 });
-
 
 export default moduleGreeting;

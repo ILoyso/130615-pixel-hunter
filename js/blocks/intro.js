@@ -22,7 +22,7 @@ const introStr = String.raw`<div id="main" class="central__content">
 const moduleIntro = createElement(introStr);
 const showGreeting = moduleIntro.querySelector(`.intro__asterisk`);
 
-showGreeting.addEventListener(`click`, function () {
+showGreeting.addEventListener(`click`, () => {
   showScreen(moduleGreeting);
 });
 

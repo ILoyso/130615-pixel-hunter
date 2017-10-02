@@ -61,14 +61,14 @@ const form = moduleThirdGame.querySelector(`.game__content`);
 const answerClass = `game__option`;
 const goBack = moduleThirdGame.querySelector(`.back`);
 
-form.addEventListener(`click`, function (evt) {
+form.addEventListener(`click`, (evt) => {
   const target = evt.target;
   if (target.classList.contains(answerClass)) {
     showScreen(moduleStats);
   }
 });
 
-goBack.addEventListener(`click`, function () {
+goBack.addEventListener(`click`, () => {
   showScreen(moduleGreeting);
 });
 

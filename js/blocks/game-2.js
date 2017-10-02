@@ -72,13 +72,13 @@ const checkAnswers = () => {
   return false;
 };
 
-form.addEventListener(`click`, function () {
+form.addEventListener(`click`, () => {
   if (checkAnswers()) {
     showScreen(moduleThirdGame);
   }
 });
 
-goBack.addEventListener(`click`, function () {
+goBack.addEventListener(`click`, () => {
   showScreen(moduleGreeting);
 });
 

@@ -75,7 +75,6 @@ const form = moduleFirstGame.querySelector(`.game__content`);
 const question1 = moduleFirstGame.querySelectorAll(`input[name=question1]`);
 const question2 = moduleFirstGame.querySelectorAll(`input[name=question2]`);
 
-
 const checkAnswers = () => {
   let result1 = false;
   let result2 = false;
@@ -95,20 +94,16 @@ const checkAnswers = () => {
       result2 = false;
     }
   }
-  if (result1 && result2 && true) {
-    return true;
-  } else {
-    return false;
-  }
+  return result1 && result2 && true;
 };
 
-form.addEventListener(`click`, function () {
+form.addEventListener(`click`, () => {
   if (checkAnswers()) {
     showScreen(moduleSecondGame);
   }
 });
 
-goBack.addEventListener(`click`, function () {
+goBack.addEventListener(`click`, () => {
   showScreen(moduleGreeting);
 });
 

@@ -43,7 +43,7 @@ const showFirstGame = moduleRules.querySelector(`.rules__button`);
 const inputText = moduleRules.querySelector(`.rules__input`);
 const goBack = moduleRules.querySelector(`.back`);
 
-inputText.addEventListener(`keyup`, function () {
+inputText.addEventListener(`keyup`, () => {
   if (inputText.value !== ``) {
     showFirstGame.removeAttribute(`disabled`);
   } else {
@@ -51,11 +51,11 @@ inputText.addEventListener(`keyup`, function () {
   }
 });
 
-showFirstGame.addEventListener(`click`, function () {
+showFirstGame.addEventListener(`click`, () => {
   showScreen(moduleFirstGame);
 });
 
-goBack.addEventListener(`click`, function () {
+goBack.addEventListener(`click`, () => {
   showScreen(moduleGreeting);
 });
 

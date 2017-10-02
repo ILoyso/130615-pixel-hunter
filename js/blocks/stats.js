@@ -124,7 +124,7 @@ const statsStr = String.raw`<header class="header">
 const moduleStats = createElement(statsStr);
 const goBack = moduleStats.querySelector(`.back`);
 
-goBack.addEventListener(`click`, function () {
+goBack.addEventListener(`click`, () => {
   showScreen(moduleGreeting);
 });
 
