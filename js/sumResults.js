@@ -4,21 +4,19 @@ const sumResults = (answers, lives) => {
   const SLOW_POINTS = 50;
   const FAST_POINTS = 150;
   const LIVE_POINTS = 50;
-  const typeError = 0;
   const answersError = -1;
 
   if (!(Array.isArray(answers))) {
-    return typeError;
+    throw new Error(`Not an array`);
   }
   if (typeof lives !== `number`) {
-    return typeError;
+    throw new Error(`Not a number`);
   }
   if (answers.length < COUNT_OF_ANSWERS) {
     return answersError;
   }
 
-  let summary = 0;
-  summary = lives * LIVE_POINTS;
+  let summary = lives * LIVE_POINTS;
 
   for (let i = 0; i < COUNT_OF_ANSWERS; i++) {
     switch (answers[i]) {

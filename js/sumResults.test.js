@@ -38,27 +38,40 @@ describe(`Summary results`, () => {
     assert.equal(sumResults(answers, lives), expectedResult);
   });
 
-  it(`should return 0 if no lives count`, () => {
+  it(`should return error if no lives count`, () => {
     const answers = [`fast`, `fast`, `fast`, `slow`, `slow`, `slow`, `ok`, `ok`, `ok`, `ok`];
-    const expectedResult = 0;
-    assert.equal(sumResults(answers), expectedResult);
+    assert.throws(function () {
+      sumResults(answers);
+    }, Error, `Not a number`);
   });
 
-  it(`should return 0 if lives is not a number`, () => {
+  it(`should return error if lives is not a number`, () => {
     const answers = [`fast`, `fast`, `fast`, `slow`, `slow`, `slow`, `ok`, `ok`, `ok`, `ok`];
-    const expectedResult = 0;
-    assert.equal(sumResults(answers, `test`), expectedResult);
-    assert.equal(sumResults(answers, [1, 2, 3]), expectedResult);
-    assert.equal(sumResults(answers, {}), expectedResult);
+    assert.throws(function () {
+      sumResults(answers, `test`);
+    }, Error, `Not a number`);
+    assert.throws(function () {
+      sumResults(answers, [1, 2, 3]);
+    }, Error, `Not a number`);
+    assert.throws(function () {
+      sumResults(answers, {});
+    }, Error, `Not a number`);
   });
 
-  it(`should return 0 if answers is not an array`, () => {
-    const lives = `test`;
-    const expectedResult = 0;
-    assert.equal(sumResults(`test`, lives), expectedResult);
-    assert.equal(sumResults(null, lives), expectedResult);
-    assert.equal(sumResults(25, lives), expectedResult);
-    assert.equal(sumResults({}, lives), expectedResult);
+  it(`should return error if answers is not an array`, () => {
+    const lives = 2;
+    assert.throws(function () {
+      sumResults(`test`, lives);
+    }, Error, `Not an array`);
+    assert.throws(function () {
+      sumResults(null, lives);
+    }, Error, `Not an array`);
+    assert.throws(function () {
+      sumResults(25, lives);
+    }, Error, `Not an array`);
+    assert.throws(function () {
+      sumResults({}, lives);
+    }, Error, `Not an array`);
   });
 
 });
