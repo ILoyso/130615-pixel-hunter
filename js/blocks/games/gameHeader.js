@@ -1,7 +1,4 @@
-const initialState = {
-  time: 0,
-  lives: 2
-};
+import gameState from '../statsData';
 
 const drawHeart = (full) => {
   return `<img src="img/heart__${full ? `full` : `empty`}.svg" class="game__heart" alt="Life" width="32" height="32">`;
@@ -22,6 +19,6 @@ const getHeader = (data) => String.raw`<header class="header">
     </div>
   </header>`;
 
-const headerStr = getHeader(initialState);
+const headerStr = getHeader(gameState);
 
 export default headerStr;

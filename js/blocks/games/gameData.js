@@ -1,5 +1,6 @@
-export default {
-  game1: {
+export default [
+  {
+    type: `game1`,
     text: `Угадайте для каждого изображения фото или рисунок?`,
     answers: [
       {
@@ -13,7 +14,8 @@ export default {
     ]
   },
 
-  game2: {
+  {
+    type: `game2`,
     text: `Угадай, фото или рисунок?`,
     answers: [
       {
@@ -23,7 +25,8 @@ export default {
     ]
   },
 
-  game3: {
+  {
+    type: `game3`,
     text: `Найдите рисунок среди изображений`,
     answers: [
       {
@@ -40,4 +43,4 @@ export default {
       }
     ]
   }
-};
+];

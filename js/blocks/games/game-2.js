@@ -2,14 +2,15 @@ import createElement from '../../createElement';
 import showScreen from '../../showScreen';
 import moduleThirdGame from './game-3';
 import moduleGreeting from '../greeting/greeting';
-import headerStr from './header';
+import headerStr from './gameHeader';
+import statsStr from './gameStats';
 import data from './gameData';
 
-const secondGameStr = String.raw`<div class="game">
-    <p class="game__task">${data.game2.text}</p>
+const secondGameStr = String.raw`${headerStr}<div class="game">
+    <p class="game__task">${data[1].text}</p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
-        <img src="${data.game2.answers[0].imgSrc}" alt="Option 1" width="705" height="455">
+        <img src="${data[1].answers[0].imgSrc}" alt="Option 1" width="705" height="455">
         <label class="game__answer  game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -20,23 +21,10 @@ const secondGameStr = String.raw`<div class="game">
         </label>
       </div>
     </form>
-    <div class="stats">
-      <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--unknown"></li>
-      </ul>
-    </div>
+    ${statsStr}
   </div>`;
 
-const moduleSecondGame = createElement(headerStr + secondGameStr);
+const moduleSecondGame = createElement(secondGameStr);
 const form = moduleSecondGame.querySelector(`.game__content`);
 const goBack = moduleSecondGame.querySelector(`.back`);
 const question1 = moduleSecondGame.querySelectorAll(`input[name=question1]`);

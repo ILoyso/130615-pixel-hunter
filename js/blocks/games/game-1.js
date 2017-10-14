@@ -2,14 +2,15 @@ import createElement from '../../createElement';
 import showScreen from '../../showScreen';
 import moduleSecondGame from './game-2';
 import moduleGreeting from '../greeting/greeting';
-import headerStr from './header';
+import headerStr from './gameHeader';
+import statsStr from './gameStats';
 import data from './gameData';
 
-const firstGameStr = String.raw`<div class="game">
-    <p class="game__task">${data.game1.text}</p>
+const firstGameStr = String.raw`${headerStr}<div class="game">
+    <p class="game__task">${data[0].text}</p>
     <form class="game__content">
       <div class="game__option">
-        <img src="${data.game1.answers[0].imgSrc}" alt="Option 1" width="468" height="458">
+        <img src="${data[0].answers[0].imgSrc}" alt="Option 1" width="468" height="458">
         <label class="game__answer game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -20,7 +21,7 @@ const firstGameStr = String.raw`<div class="game">
         </label>
       </div>
       <div class="game__option">
-        <img src="${data.game1.answers[1].imgSrc}" alt="Option 2" width="468" height="458">
+        <img src="${data[0].answers[1].imgSrc}" alt="Option 2" width="468" height="458">
         <label class="game__answer  game__answer--photo">
           <input name="question2" type="radio" value="photo">
           <span>Фото</span>
@@ -31,23 +32,10 @@ const firstGameStr = String.raw`<div class="game">
         </label>
       </div>
     </form>
-    <div class="stats">
-      <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
-      </ul>
-    </div>
+    ${statsStr}
   </div>`;
 
-const moduleFirstGame = createElement(headerStr + firstGameStr);
+const moduleFirstGame = createElement(firstGameStr);
 const goBack = moduleFirstGame.querySelector(`.back`);
 const form = moduleFirstGame.querySelector(`.game__content`);
 const question1 = moduleFirstGame.querySelectorAll(`input[name=question1]`);
