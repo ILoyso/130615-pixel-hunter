@@ -2,15 +2,17 @@ import createElement from '../../createElement';
 import showScreen from '../../showScreen';
 import moduleThirdGame from './game-3';
 import moduleGreeting from '../greeting/greeting';
-import headerStr from './gameHeader';
+import headerGame from './gameHeader';
 import statsStr from './gameStats';
 import data from './gameData';
 
-const secondGameStr = String.raw`${headerStr}<div class="game">
-    <p class="game__task">${data[1].text}</p>
+const greetingGameData = data[1];
+
+const secondGameStr = String.raw`${headerGame}<div class="game">
+    <p class="game__task">${greetingGameData.text}</p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
-        <img src="${data[1].answers[0].imgSrc}" alt="Option 1" width="705" height="455">
+        <img src="${greetingGameData.answers[0].imgSrc}" alt="Option 1" width="705" height="455">
         <label class="game__answer  game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>

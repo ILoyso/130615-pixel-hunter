@@ -19,6 +19,6 @@ const getHeader = (data) => String.raw`<header class="header">
     </div>
   </header>`;
 
-const headerStr = getHeader(gameState);
+const headerGame = getHeader(gameState);
 
-export default headerStr;
+export default headerGame;
