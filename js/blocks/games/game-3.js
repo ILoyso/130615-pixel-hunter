@@ -33,6 +33,7 @@ export default (gameData, userData) => {
         return i;
       }
     }
+    return false;
   };
 
   const checkAnswers = (evt) => {
