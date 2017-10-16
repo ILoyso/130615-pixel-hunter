@@ -1,43 +1,66 @@
 import createElement from '../../createElement';
 import showScreen from '../../showScreen';
-import moduleStats from '../stats/stats';
-import moduleGreeting from '../greeting/greeting';
-import headerGame from './gameHeader';
-import statsStr from './gameStats';
-import data from './gameData';
+import getHeader from './gameHeader';
+import getStats from './gameStats';
+import {changeStats, letsPlay, changeLives, goBack} from '../../gamePlay';
 
-const greetingGameData = data[2];
-
-const thirdGameStr = String.raw`${headerGame}<div class="game">
-    <p class="game__task">${greetingGameData.text}</p>
+const thirdGame = (gameData, userData) => String.raw`${getHeader(userData)}
+  <div class="game">
+    <p class="game__task">${gameData.text}</p>
     <form class="game__content  game__content--triple">
       <div class="game__option">
-        <img src="${greetingGameData.answers[0].imgSrc}" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option  game__option--selected">
-        <img src="${greetingGameData.answers[1].imgSrc}" alt="Option 1" width="304" height="455">
+        <img src="${gameData.answers[0].imgSrc}" alt="Option 1" width="304" height="455">
       </div>
       <div class="game__option">
-        <img src="${greetingGameData.answers[2].imgSrc}" alt="Option 1" width="304" height="455">
+        <img src="${gameData.answers[1].imgSrc}" alt="Option 1" width="304" height="455">
+      </div>
+      <div class="game__option">
+        <img src="${gameData.answers[2].imgSrc}" alt="Option 1" width="304" height="455">
       </div>
     </form>
-    ${statsStr}
+    ${getStats(userData)}
   </div>`;
 
-const moduleThirdGame = createElement(thirdGameStr);
-const form = moduleThirdGame.querySelector(`.game__content`);
-const answerClass = `game__option`;
-const goBack = moduleThirdGame.querySelector(`.back`);
+export default (gameData, userData) => {
+  const moduleThirdGame = createElement(thirdGame(gameData, userData));
+  const form = moduleThirdGame.querySelector(`.game__content`);
+  const answers = form.querySelectorAll(`.game__option`);
+  const back = moduleThirdGame.querySelector(`.back`);
 
-form.addEventListener(`click`, (evt) => {
-  const target = evt.target;
-  if (target.classList.contains(answerClass)) {
-    showScreen(moduleStats);
-  }
-});
+  const findCorrectAnswer = () => {
+    for (let i = 0; i < gameData.answers.length; i++) {
+      if (gameData.answers[i].imgType === `paint`) {
+        return i;
+      }
+    }
+  };
 
-goBack.addEventListener(`click`, () => {
-  showScreen(moduleGreeting);
-});
+  const checkAnswers = (evt) => {
+    if (evt.target.classList.contains(`game__option`)) {
+      evt.target.classList.add(`game__option--selected`);
 
-export default moduleThirdGame;
+      for (let i = 0; i < answers.length; i++) {
+        if (answers[i].classList.contains(`game__option--selected`)) {
+          if (i === findCorrectAnswer()) {
+            changeStats(true);
+            letsPlay();
+          } else {
+            changeStats(false);
+            changeLives();
+            letsPlay();
+          }
+        }
+      }
+    }
+  };
+
+  form.addEventListener(`click`, (evt) => {
+    checkAnswers(evt);
+  });
+
+  back.addEventListener(`click`, () => {
+    goBack();
+  });
+
+  showScreen(moduleThirdGame);
+};

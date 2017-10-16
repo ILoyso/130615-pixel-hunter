@@ -1,8 +1,7 @@
 import createElement from '../../createElement';
 import showScreen from '../../showScreen';
-import moduleGreeting from '../greeting/greeting';
 import headerStr from '../header';
-import gameStats from '../statsData';
+import {goBack} from '../../gamePlay';
 
 const getResultAnswers = (data) => {
   let correctAnswers = 0;
@@ -33,6 +32,59 @@ const getResultAnswers = (data) => {
     slow: slowAnswers
   };
 };
+
+const oldGames = String.raw`<table class="result__table">
+      <tr>
+        <td class="result__number">2.</td>
+        <td>
+          <ul class="stats">
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--correct"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--wrong"></li>
+          </ul>
+        </td>
+        <td class="result__total"></td>
+        <td class="result__total  result__total--final">fail</td>
+      </tr>
+    </table>
+    <table class="result__table">
+      <tr>
+        <td class="result__number">3.</td>
+        <td colspan="2">
+          <ul class="stats">
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--correct"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--unknown"></li>
+          </ul>
+        </td>
+        <td class="result__points">×&nbsp;100</td>
+        <td class="result__total">900</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за жизни:</td>
+        <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
+        <td class="result__points">×&nbsp;50</td>
+        <td class="result__total">100</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="result__total  result__total--final">950</td>
+      </tr>
+    </table>`;
 
 const getGameResults = (data) => {
   const gameResults = getResultAnswers(data);
@@ -108,70 +160,19 @@ const getGameResults = (data) => {
   return currentStats;
 };
 
-const oldGames = String.raw`<table class="result__table">
-      <tr>
-        <td class="result__number">2.</td>
-        <td>
-          <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--wrong"></li>
-          </ul>
-        </td>
-        <td class="result__total"></td>
-        <td class="result__total  result__total--final">fail</td>
-      </tr>
-    </table>
-    <table class="result__table">
-      <tr>
-        <td class="result__number">3.</td>
-        <td colspan="2">
-          <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--unknown"></li>
-          </ul>
-        </td>
-        <td class="result__points">×&nbsp;100</td>
-        <td class="result__total">900</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
-        <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">100</td>
-      </tr>
-      <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
-      </tr>
-    </table>`;
-
-const resultStats = `${headerStr}
+export default (userData) => {
+  const resultStats = `${headerStr}
   <div class="result">
-  ${getGameResults(gameStats)}
+  ${getGameResults(userData)}
   ${oldGames}
   </div>`;
 
-const moduleStats = createElement(resultStats);
-const goBack = moduleStats.querySelector(`.back`);
+  const moduleStats = createElement(resultStats);
+  const back = moduleStats.querySelector(`.back`);
 
-goBack.addEventListener(`click`, () => {
-  showScreen(moduleGreeting);
-});
+  back.addEventListener(`click`, () => {
+    goBack();
+  });
 
-export default moduleStats;
+  showScreen(moduleStats);
+};

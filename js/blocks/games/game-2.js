@@ -1,18 +1,15 @@
 import createElement from '../../createElement';
 import showScreen from '../../showScreen';
-import moduleThirdGame from './game-3';
-import moduleGreeting from '../greeting/greeting';
-import headerGame from './gameHeader';
-import statsStr from './gameStats';
-import data from './gameData';
+import getHeader from './gameHeader';
+import getStats from './gameStats';
+import {changeStats, letsPlay, changeLives, goBack} from '../../gamePlay';
 
-const greetingGameData = data[1];
-
-const secondGameStr = String.raw`${headerGame}<div class="game">
-    <p class="game__task">${greetingGameData.text}</p>
+const secondGame = (gameData, userData) => String.raw`${getHeader(userData)}
+  <div class="game">
+    <p class="game__task">${gameData.text}</p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
-        <img src="${greetingGameData.answers[0].imgSrc}" alt="Option 1" width="705" height="455">
+        <img src="${gameData.answers[0].imgSrc}" alt="Option 1" width="705" height="455">
         <label class="game__answer  game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -23,31 +20,43 @@ const secondGameStr = String.raw`${headerGame}<div class="game">
         </label>
       </div>
     </form>
-    ${statsStr}
+    ${getStats(userData)}
   </div>`;
 
-const moduleSecondGame = createElement(secondGameStr);
-const form = moduleSecondGame.querySelector(`.game__content`);
-const goBack = moduleSecondGame.querySelector(`.back`);
-const question1 = moduleSecondGame.querySelectorAll(`input[name=question1]`);
+export default (gameData, userData) => {
+  const moduleSecondGame = createElement(secondGame(gameData, userData));
+  const form = moduleSecondGame.querySelector(`.game__content`);
+  const back = moduleSecondGame.querySelector(`.back`);
+  const question1 = moduleSecondGame.querySelectorAll(`input[name=question1]`);
 
-const checkAnswers = () => {
-  for (let i = 0; i < question1.length; i++) {
-    if (question1[i].checked) {
-      return true;
+  const checkAnswers = () => {
+    let result1 = false;
+    for (let i = 0; i < question1.length; i++) {
+      if (question1[i].checked) {
+        result1 = question1[i].getAttribute(`value`);
+      }
     }
-  }
-  return false;
+
+    if (result1 && true) {
+      if (result1 === gameData.answers[0].imgType) {
+        changeStats(true);
+        letsPlay();
+      } else {
+        changeStats(false);
+        changeLives();
+        letsPlay();
+      }
+    }
+  };
+
+  form.addEventListener(`click`, () => {
+    checkAnswers();
+  });
+
+  back.addEventListener(`click`, () => {
+    goBack();
+  });
+
+  showScreen(moduleSecondGame);
 };
 
-form.addEventListener(`click`, () => {
-  if (checkAnswers()) {
-    showScreen(moduleThirdGame);
-  }
-});
-
-goBack.addEventListener(`click`, () => {
-  showScreen(moduleGreeting);
-});
-
-export default moduleSecondGame;

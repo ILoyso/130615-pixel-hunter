@@ -1,9 +1,7 @@
 import createElement from '../../createElement';
-import showScreen from '../../showScreen';
-import moduleFirstGame from '../games/game-1';
-import moduleGreeting from '../greeting/greeting';
 import headerStr from '../header';
 import data from './rulesData';
+import {letsPlay, goBack} from '../../gamePlay';
 
 const rulesStr = String.raw`${headerStr}
   <div class="rules">
@@ -18,7 +16,7 @@ const rulesStr = String.raw`${headerStr}
 const moduleRules = createElement(rulesStr);
 const showFirstGame = moduleRules.querySelector(`.rules__button`);
 const inputText = moduleRules.querySelector(`.rules__input`);
-const goBack = moduleRules.querySelector(`.back`);
+const back = moduleRules.querySelector(`.back`);
 
 inputText.addEventListener(`keyup`, () => {
   if (inputText.value) {
@@ -29,11 +27,11 @@ inputText.addEventListener(`keyup`, () => {
 });
 
 showFirstGame.addEventListener(`click`, () => {
-  showScreen(moduleFirstGame);
+  letsPlay();
 });
 
-goBack.addEventListener(`click`, () => {
-  showScreen(moduleGreeting);
+back.addEventListener(`click`, () => {
+  goBack();
 });
 
 export default moduleRules;
