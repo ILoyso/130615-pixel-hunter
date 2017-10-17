@@ -26,12 +26,8 @@ inputText.addEventListener(`keyup`, () => {
   }
 });
 
-showFirstGame.addEventListener(`click`, () => {
-  letsPlay();
-});
+showFirstGame.addEventListener(`click`, letsPlay);
 
-back.addEventListener(`click`, () => {
-  goBack();
-});
+back.addEventListener(`click`, goBack);
 
 export default moduleRules;

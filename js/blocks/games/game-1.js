@@ -67,13 +67,9 @@ export default (gameData, userData) => {
     }
   };
 
-  form.addEventListener(`click`, () => {
-    checkAnswers();
-  });
+  form.addEventListener(`click`, checkAnswers);
 
-  back.addEventListener(`click`, () => {
-    goBack();
-  });
+  back.addEventListener(`click`, goBack);
 
   showScreen(moduleFirstGame);
 };

@@ -59,9 +59,7 @@ export default (gameData, userData) => {
     checkAnswers(evt);
   });
 
-  back.addEventListener(`click`, () => {
-    goBack();
-  });
+  back.addEventListener(`click`, goBack);
 
   showScreen(moduleThirdGame);
 };
