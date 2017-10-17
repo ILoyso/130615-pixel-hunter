@@ -53,14 +53,19 @@ const totalPoints = (userResults, finalResults) => {
   return correctPoints(finalResults) + fastPoints(finalResults) + livePoints(userResults) + slowPoints(finalResults);
 };
 
+const result = {
+  FAIL: `FAIL`,
+  WIN: `Победа`
+};
+
 const getGameResults = (data) => {
   const gameResults = getResultAnswers(data);
 
   const resultTitle = () => {
     if (gameResults.wrong > 2) {
-      return `FAIL`;
+      return result.FAIL;
     } else {
-      return `Победа!`;
+      return result.WIN;
     }
   };
 
@@ -176,9 +181,7 @@ export default (userData) => {
   const moduleStats = createElement(resultStats);
   const back = moduleStats.querySelector(`.back`);
 
-  back.addEventListener(`click`, () => {
-    goBack();
-  });
+  back.addEventListener(`click`, goBack);
 
   showScreen(moduleStats);
 };

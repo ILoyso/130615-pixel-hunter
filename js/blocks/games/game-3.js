@@ -55,9 +55,7 @@ export default (gameData, userData) => {
     }
   };
 
-  form.addEventListener(`click`, (evt) => {
-    checkAnswers(evt);
-  });
+  form.addEventListener(`click`, checkAnswers);
 
   back.addEventListener(`click`, goBack);
 
