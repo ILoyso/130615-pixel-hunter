@@ -8,14 +8,14 @@ const thirdGame = (gameData, userData) => String.raw`${getHeader(userData)}
   <div class="game">
     <p class="game__task">${gameData.text}</p>
     <form class="game__content  game__content--triple">
-      <div class="game__option">
-        <img src="${gameData.answers[0].imgSrc}" alt="Option 1" width="304" height="455">
+      <div class="game__option game__option--full-img">
+        <img class="game__img" src="${gameData.answers[0].imgSrc}" alt="Option 1">
       </div>
-      <div class="game__option">
-        <img src="${gameData.answers[1].imgSrc}" alt="Option 1" width="304" height="455">
+      <div class="game__option game__option--full-img">
+        <img class="game__img" src="${gameData.answers[1].imgSrc}" alt="Option 1">
       </div>
-      <div class="game__option">
-        <img src="${gameData.answers[2].imgSrc}" alt="Option 1" width="304" height="455">
+      <div class="game__option game__option--full-img">
+        <img class="game__img" src="${gameData.answers[2].imgSrc}" alt="Option 1">
       </div>
     </form>
     ${getStats(userData)}

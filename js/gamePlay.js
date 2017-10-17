@@ -42,8 +42,7 @@ export const goBack = () => {
 };
 
 export const letsPlay = () => {
-  if ((gameNumber === gameData.length) || (userData.lives < 0)) {
-    userData.lives = 0;
+  if ((gameNumber === gameData.length) || (userData.lives < 1)) {
     moduleStats(userData);
     return;
   }

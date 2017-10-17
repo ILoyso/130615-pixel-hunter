@@ -9,7 +9,7 @@ const secondGame = (gameData, userData) => String.raw`${getHeader(userData)}
     <p class="game__task">${gameData.text}</p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
-        <img src="${gameData.answers[0].imgSrc}" alt="Option 1" width="705" height="455">
+        <img class="game__img game__img--two" src="${gameData.answers[0].imgSrc}" alt="Option 1">
         <label class="game__answer  game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
