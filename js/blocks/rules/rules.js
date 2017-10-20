@@ -1,33 +1,14 @@
-import createElement from '../../createElement';
-import headerStr from '../header';
-import data from './rulesData';
-import {letsPlay, goBack} from '../../gamePlay';
+import RulesView from './rules-view';
+import {letsPlay, goBack} from '../../gameplay';
 
-const rulesStr = String.raw`${headerStr}
-  <div class="rules">
-    <h1 class="rules__title">${data.title}</h1>
-    <p class="rules__description">${data.text}</p>
-    <form class="rules__form">
-      <input class="rules__input" type="text" placeholder="Ваше Имя">
-      <button class="rules__button  continue" type="submit" disabled>Go!</button>
-    </form>
-  </div>`;
+const rulesScreen = new RulesView();
 
-const moduleRules = createElement(rulesStr);
-const showFirstGame = moduleRules.querySelector(`.rules__button`);
-const inputText = moduleRules.querySelector(`.rules__input`);
-const back = moduleRules.querySelector(`.back`);
+rulesScreen.onButtonClick = () => {
+  letsPlay();
+};
 
-inputText.addEventListener(`keyup`, () => {
-  if (inputText.value) {
-    showFirstGame.removeAttribute(`disabled`);
-  } else {
-    showFirstGame.setAttribute(`disabled`, `disabled`);
-  }
-});
+rulesScreen.onBackClick = () => {
+  goBack();
+};
 
-showFirstGame.addEventListener(`click`, letsPlay);
-
-back.addEventListener(`click`, goBack);
-
-export default moduleRules;
+export default rulesScreen.element;

@@ -1,8 +1,8 @@
-import createElement from '../../createElement';
-import showScreen from '../../showScreen';
+import {createElement, showScreen} from '../../utils';
 import getHeader from './gameHeader';
+import footer from '../footer';
 import getStats from './gameStats';
-import {changeStats, letsPlay, changeLives, goBack} from '../../gamePlay';
+import {changeStats, letsPlay, changeLives, goBack} from '../../gameplay';
 
 const secondGame = (gameData, userData) => String.raw`${getHeader(userData)}
   <div class="game">
@@ -21,6 +21,7 @@ const secondGame = (gameData, userData) => String.raw`${getHeader(userData)}
       </div>
     </form>
     ${getStats(userData)}
+    ${footer}
   </div>`;
 
 export default (gameData, userData) => {

@@ -2,7 +2,7 @@ import moduleGreeting from './blocks/greeting/greeting';
 import moduleFirstGame from './blocks/games/game-1';
 import moduleSecondGame from './blocks/games/game-2';
 import moduleThirdGame from './blocks/games/game-3';
-import showScreen from './showScreen';
+import {showScreen} from './utils';
 import gameData from './blocks/games/gameData';
 import moduleStats from './blocks/stats/stats';
 
@@ -12,7 +12,7 @@ const initialData = {
   results: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`]
 };
 
-let userData = JSON.parse(JSON.stringify(initialData));
+export let userData = JSON.parse(JSON.stringify(initialData));
 let gameNumber = 0;
 
 export const resetUserData = () => {

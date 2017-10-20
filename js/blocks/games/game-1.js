@@ -1,8 +1,8 @@
-import createElement from '../../createElement';
-import showScreen from '../../showScreen';
+import {createElement, showScreen} from '../../utils';
 import getHeader from './gameHeader';
+import footer from '../footer';
 import getStats from './gameStats';
-import {changeStats, letsPlay, changeLives, goBack} from '../../gamePlay';
+import {changeStats, letsPlay, changeLives, goBack} from '../../gameplay';
 
 const firstGame = (gameData, userData) => String.raw`${getHeader(userData)}
   <div class="game">
@@ -17,7 +17,7 @@ const firstGame = (gameData, userData) => String.raw`${getHeader(userData)}
         <label class="game__answer game__answer--paint">
           <input name="question1" type="radio" value="paint">
           <span>Рисунок</span>
-        </label> 
+        </label>
       </div>
       <div class="game__option game__option--full-img">
         <img class="game__img" src="${gameData.answers[1].imgSrc}" alt="Option 2">
@@ -32,6 +32,7 @@ const firstGame = (gameData, userData) => String.raw`${getHeader(userData)}
       </div>
     </form>
     ${getStats(userData)}
+    ${footer}
   </div>`;
 
 export default (gameData, userData) => {
@@ -73,5 +74,4 @@ export default (gameData, userData) => {
 
   showScreen(moduleFirstGame);
 };
-
 

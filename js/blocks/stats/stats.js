@@ -1,7 +1,7 @@
-import createElement from '../../createElement';
-import showScreen from '../../showScreen';
-import headerStr from '../header';
-import {goBack} from '../../gamePlay';
+import {createElement, showScreen} from '../../utils';
+import header from '../header';
+import footer from '../footer';
+import {goBack} from '../../gameplay';
 
 const getResultAnswers = (data) => {
   let correctAnswers = 0;
@@ -76,7 +76,7 @@ const getGameResults = (data) => {
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-            ${[...data.results].map((level) => `<li class="stats__result stats__result--${level}"></li>`)}            
+            ${[...data.results].map((level) => `<li class="stats__result stats__result--${level}"></li>`)}
           </ul>
         </td>
         <td class="result__points">×&nbsp;100</td>
@@ -106,7 +106,7 @@ const getGameResults = (data) => {
       <tr>
         <td colspan="5" class="result__total  result__total--final">${totalPoints(data, gameResults)}</td>
       </tr>
-    </table>    
+    </table>
   </div>`;
 
   return currentStats;
@@ -170,11 +170,12 @@ const getGameHistory = (historyData) => {
 };
 
 export default (userData) => {
-  const resultStats = `${headerStr}
+  const resultStats = `${header}
   <div class="result">
   ${getGameResults(userData)}
   ${getGameHistory(gameHistory)}
-  </div>`;
+  </div>
+  ${footer}`;
 
   addToHistory(userData);
 
