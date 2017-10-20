@@ -1,76 +1,13 @@
 import {createElement, showScreen} from '../../utils';
 import header from '../header';
 import footer from '../footer';
-import {goBack} from '../../gameplay';
-
-const getResultAnswers = (data) => {
-  let correctAnswers = 0;
-  let wrongAnswers = 0;
-  let fastAnswers = 0;
-  let slowAnswers = 0;
-
-  for (let i = 0; i < data.results.length; i++) {
-    switch (data.results[i]) {
-      case `correct`:
-        correctAnswers++;
-        break;
-      case `wrong`:
-        wrongAnswers++;
-        break;
-      case `fast`:
-        fastAnswers++;
-        break;
-      case `slow`:
-        slowAnswers++;
-        break;
-    }
-  }
-  return {
-    correct: correctAnswers,
-    wrong: wrongAnswers,
-    fast: fastAnswers,
-    slow: slowAnswers
-  };
-};
-
-const correctPoints = (data) => {
-  return data.correct * 100;
-};
-
-const fastPoints = (data) => {
-  return data.fast * 50;
-};
-
-const livePoints = (data) => {
-  return data.lives * 50;
-};
-
-const slowPoints = (data) => {
-  return data.slow * -50;
-};
-
-const totalPoints = (userResults, finalResults) => {
-  return correctPoints(finalResults) + fastPoints(finalResults) + livePoints(userResults) + slowPoints(finalResults);
-};
-
-const result = {
-  FAIL: `FAIL`,
-  WIN: `Победа`
-};
+import * as game from '../../gameplay';
 
 const getGameResults = (data) => {
-  const gameResults = getResultAnswers(data);
-
-  const resultTitle = () => {
-    if (gameResults.wrong > 2) {
-      return result.FAIL;
-    } else {
-      return result.WIN;
-    }
-  };
+  const gameResults = game.getResultAnswers(data);
 
   const currentStats = String.raw`<div class="result">
-    <h1>${resultTitle()}</h1>
+    <h1>${game.resultTitle(gameResults)}</h1>
     <table class="result__table">
       <tr>
         <td class="result__number">1.</td>
@@ -80,31 +17,31 @@ const getGameResults = (data) => {
           </ul>
         </td>
         <td class="result__points">×&nbsp;100</td>
-        <td class="result__total">${correctPoints(gameResults)}</td>
+        <td class="result__total">${game.correctPoints(gameResults)}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
         <td class="result__extra">${gameResults.fast}&nbsp;<span class="stats__result stats__result--fast"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">${fastPoints(gameResults)}</td>
+        <td class="result__total">${game.fastPoints(gameResults)}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
         <td class="result__extra">${data.lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">${livePoints(data)}</td>
+        <td class="result__total">${game.livePoints(data)}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Штраф за медлительность:</td>
         <td class="result__extra">${gameResults.slow}&nbsp;<span class="stats__result stats__result--slow"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">${slowPoints(gameResults)}</td>
+        <td class="result__total">${game.slowPoints(gameResults)}</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">${totalPoints(data, gameResults)}</td>
+        <td colspan="5" class="result__total  result__total--final">${game.totalPoints(data, gameResults)}</td>
       </tr>
     </table>
   </div>`;
@@ -112,22 +49,11 @@ const getGameResults = (data) => {
   return currentStats;
 };
 
-let gameHistory = [];
-
-const addToHistory = (data) => {
-  gameHistory.push(data);
-
-  if (gameHistory.length > 2) {
-    gameHistory.shift();
-  }
-  return gameHistory;
-};
-
 const getGameHistory = (historyData) => {
   let oldGames = ``;
   let historyGameResults = {};
   for (let i = 0; i < historyData.length; i++) {
-    historyGameResults = getResultAnswers(historyData[i]);
+    historyGameResults = game.getResultAnswers(historyData[i]);
 
     oldGames = `${oldGames} <table class="result__table">
       <tr>
@@ -138,31 +64,31 @@ const getGameHistory = (historyData) => {
           </ul>
         </td>
         <td class="result__points">×&nbsp;100</td>
-        <td class="result__total">${correctPoints(historyGameResults)}</td>
+        <td class="result__total">${game.correctPoints(historyGameResults)}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
         <td class="result__extra">${historyGameResults.fast}&nbsp;<span class="stats__result stats__result--fast"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">${fastPoints(historyGameResults)}</td>
+        <td class="result__total">${game.fastPoints(historyGameResults)}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
         <td class="result__extra">${historyData[i].lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">${livePoints(historyData[i])}</td>
+        <td class="result__total">${game.livePoints(historyData[i])}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Штраф за медлительность:</td>
         <td class="result__extra">${historyGameResults.slow}&nbsp;<span class="stats__result stats__result--slow"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">${slowPoints(historyGameResults)}</td>
+        <td class="result__total">${game.slowPoints(historyGameResults)}</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">${totalPoints(historyData[i], historyGameResults)}</td>
+        <td colspan="5" class="result__total  result__total--final">${game.totalPoints(historyData[i], historyGameResults)}</td>
       </tr>
     </table>`;
   }
@@ -173,16 +99,16 @@ export default (userData) => {
   const resultStats = `${header}
   <div class="result">
   ${getGameResults(userData)}
-  ${getGameHistory(gameHistory)}
+  ${getGameHistory(game.gameHistory)}
   </div>
   ${footer}`;
 
-  addToHistory(userData);
+  game.addToHistory(userData);
 
   const moduleStats = createElement(resultStats);
   const back = moduleStats.querySelector(`.back`);
 
-  back.addEventListener(`click`, goBack);
+  back.addEventListener(`click`, game.goBack);
 
   showScreen(moduleStats);
 };
