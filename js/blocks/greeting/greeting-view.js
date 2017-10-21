@@ -1,6 +1,6 @@
 import AbstractView from '../../view';
 import footer from '../footer';
-import data from './greetingData';
+import data from './greeting-data';
 
 export default class GreetingView extends AbstractView {
 

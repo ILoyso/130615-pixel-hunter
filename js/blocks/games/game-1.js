@@ -1,7 +1,7 @@
 import {createElement, showScreen} from '../../utils';
-import getHeader from './gameHeader';
+import getHeader from './game-header';
 import footer from '../footer';
-import getStats from './gameStats';
+import getStats from './game-stats';
 import {changeStats, letsPlay, changeLives, goBack} from '../../gameplay';
 
 const firstGame = (gameData, userData) => String.raw`${getHeader(userData)}

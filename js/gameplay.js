@@ -3,8 +3,8 @@ import moduleFirstGame from './blocks/games/game-1';
 import moduleSecondGame from './blocks/games/game-2';
 import moduleThirdGame from './blocks/games/game-3';
 import {showScreen} from './utils';
-import gameData from './blocks/games/gameData';
-import moduleStats from './blocks/stats/stats';
+import gameData from './blocks/games/game-data';
+import statsScreen from './blocks/stats/stats';
 
 const initialData = {
   time: 30,
@@ -13,6 +13,7 @@ const initialData = {
 };
 
 export let userData = JSON.parse(JSON.stringify(initialData));
+
 let gameNumber = 0;
 
 export const resetUserData = () => {
@@ -43,7 +44,7 @@ export const goBack = () => {
 
 export const letsPlay = () => {
   if ((gameNumber === gameData.length) || (userData.lives < 1)) {
-    moduleStats(userData);
+    showScreen(statsScreen(userData));
     return;
   }
 
