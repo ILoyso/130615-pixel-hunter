@@ -1,4 +1,4 @@
-import AbstractView from '../../view';
+import AbstractView from '../../../view';
 
 const drawHeart = (full) => {
   return `<img src="img/heart__${full ? `full` : `empty`}.svg" class="game__heart" alt="Life" width="32" height="32">`;
@@ -19,12 +19,32 @@ export default class GameHeaderView extends AbstractView {
         <img src="img/logo_small.svg" width="101" height="44">
       </button>
     </div>
-    <h1 class="game__timer">${this.state.time}</h1>
+    ${this.getTimerTemplate(this.state.time)}
     <div class="game__lives">
-      ${drawHeart(this.state.lives > 2)}
-      ${drawHeart(this.state.lives > 1)}
-      ${drawHeart(this.state.lives > 0)}
+      ${this.getLivesTemplate(this.state.lives)}
     </div>
   </header>`;
+  }
+
+  getTimerTemplate(time) {
+    return `<h1 class="game__timer">${time}</h1>`;
+  }
+
+  getLivesTemplate(lives) {
+    return `${drawHeart(lives > 2)}
+      ${drawHeart(lives > 1)}
+      ${drawHeart(lives > 0)}`;
+  }
+
+  updateTime(time) {
+    if (time !== this.state.time) {
+      this.template.querySelector(`.game__timer`).innerHTML = time;
+    }
+  }
+
+  updateLives(lives) {
+    if (lives !== this.state.lives) {
+      this.template.querySelector(`.game__lives`).innerHTML = lives;
+    }
   }
 }

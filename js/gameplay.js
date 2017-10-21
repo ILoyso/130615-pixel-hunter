@@ -1,7 +1,7 @@
 import moduleGreeting from './blocks/greeting/greeting';
-import moduleFirstGame from './blocks/games/game-1';
-import moduleSecondGame from './blocks/games/game-2';
-import moduleThirdGame from './blocks/games/game-3';
+import moduleFirstGame from './blocks/games/level-1/level-1';
+import moduleSecondGame from './blocks/games/level-2/level-2';
+import moduleThirdGame from './blocks/games/level-3/level-3';
 import {showScreen} from './utils';
 import gameData from './blocks/games/game-data';
 import statsScreen from './blocks/stats/stats';
@@ -14,7 +14,7 @@ const initialData = {
 
 export let userData = JSON.parse(JSON.stringify(initialData));
 
-let gameNumber = 0;
+export let gameNumber = 0;
 
 export const resetUserData = () => {
   userData = JSON.parse(JSON.stringify(initialData));
@@ -50,15 +50,15 @@ export const letsPlay = () => {
 
   switch (gameData[gameNumber].type) {
     case `game1`:
-      moduleFirstGame(gameData[gameNumber], userData);
+      showScreen(moduleFirstGame(gameData[gameNumber], userData));
       gameNumber++;
       break;
     case `game2`:
-      moduleSecondGame(gameData[gameNumber], userData);
+      showScreen(moduleSecondGame(gameData[gameNumber], userData));
       gameNumber++;
       break;
     case `game3`:
-      moduleThirdGame(gameData[gameNumber], userData);
+      showScreen(moduleThirdGame(gameData[gameNumber], userData));
       gameNumber++;
       break;
   }
