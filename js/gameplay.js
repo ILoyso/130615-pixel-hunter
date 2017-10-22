@@ -1,12 +1,6 @@
 import {showScreen} from './utils';
-import gameData from './blocks/games/game-data';
+import {initialData, gameData, answerTypes} from './blocks/games/game-data';
 import gameScreen from './blocks/games/game';
-
-const initialData = {
-  time: 30,
-  lives: 3,
-  results: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`]
-};
 
 export let userData = JSON.parse(JSON.stringify(initialData));
 
@@ -27,16 +21,16 @@ export const getResultAnswers = (data) => {
 
   for (let i = 0; i < data.results.length; i++) {
     switch (data.results[i]) {
-      case `correct`:
+      case answerTypes.CORRECT:
         correctAnswers++;
         break;
-      case `wrong`:
+      case answerTypes.WRONG:
         wrongAnswers++;
         break;
-      case `fast`:
+      case answerTypes.FAST:
         fastAnswers++;
         break;
-      case `slow`:
+      case answerTypes.SLOW:
         slowAnswers++;
         break;
     }
@@ -50,7 +44,7 @@ export const getResultAnswers = (data) => {
 };
 
 export const correctPoints = (data) => {
-  return data.correct * 100;
+  return data.correct * 100 + data.fast * 100 + data.slow * 100;
 };
 
 export const fastPoints = (data) => {
@@ -80,9 +74,22 @@ export const addToHistory = (data) => {
   return gameHistory;
 };
 
+export const gameResults = {
+  FAIL: `fail`,
+  WIN: `win`
+};
+
 const result = {
   FAIL: `FAIL`,
   WIN: `Победа`
+};
+
+export const getGameResult = (data) => {
+  if (data.wrong > 2) {
+    return `fail`;
+  } else {
+    return `win`;
+  }
 };
 
 export const resultTitle = (data) => {

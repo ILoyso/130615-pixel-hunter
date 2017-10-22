@@ -5,16 +5,20 @@ import GameOne from './level-1/level-1-view';
 import GameTwo from './level-2/level-2-view';
 import GameThree from './level-3/level-3-view';
 import footer from '../footer';
+import timer from '../../getTimer';
+import {gameTypes, answerTypes, answerTimeLimits} from './game-data';
 
 const update = (container, view) => {
   container.innerHTML = ``;
   container.appendChild(view.element);
 };
 
-const gameTypes = {
-  GAME_1: `game1`,
-  GAME_2: `game2`,
-  GAME_3: `game3`
+const TIMER_INTERVAL = 1000;
+const TIME_LIMIT = 30;
+
+const gameStatus = {
+  PLAY: `play`,
+  END: `end`
 };
 
 export default class GameView extends AbstractView {
@@ -24,6 +28,7 @@ export default class GameView extends AbstractView {
     this.state = state;
     this.data = data;
     this.gameNumber = 0;
+    this.gameStatus = gameStatus.PLAY;
   }
 
   get template() {
@@ -45,15 +50,20 @@ export default class GameView extends AbstractView {
     this.levelContainer = this.element.querySelector(`.level`);
     this.statsContainer = this.element.querySelector(`.stats`);
     this.updateHeader(this.state);
+    this.startTimer();
     this.updateStats(this.state);
     this.updateLevel();
   }
 
   nextLevel(result) {
+    this.stopTimer();
     this.changeStats(result);
     this.changeLives(result);
     this.gameNumber++;
     this.updateLevel();
+    if (this.gameStatus === gameStatus.PLAY) {
+      this.startTimer();
+    }
   }
 
   updateHeader(state) {
@@ -62,6 +72,24 @@ export default class GameView extends AbstractView {
     this.back.addEventListener(`click`, () => {
       this.onBackClick();
     });
+  }
+
+  startTimer() {
+    let time = TIME_LIMIT;
+
+    this.timer = setInterval(() => {
+      time = timer(time).tick().value;
+      if (time === 0) {
+        this.stopTimer();
+        this.nextLevel(false);
+      }
+      this.state.time = time;
+      this.updateHeader(this.state);
+    }, TIMER_INTERVAL);
+  }
+
+  stopTimer() {
+    clearInterval(this.timer);
   }
 
   updateStats(state) {
@@ -73,6 +101,7 @@ export default class GameView extends AbstractView {
 
     if ((!this.currentData) || (this.state.lives === 0)) {
       this.gameEnd();
+      this.gameStatus = gameStatus.END;
       return;
     }
 
@@ -96,9 +125,15 @@ export default class GameView extends AbstractView {
 
   changeStats(result) {
     if (result) {
-      this.state.results[this.gameNumber] = `correct`;
+      if (this.state.time > answerTimeLimits.FAST) {
+        this.state.results[this.gameNumber] = answerTypes.FAST;
+      } else if (this.state.time < answerTimeLimits.SLOW) {
+        this.state.results[this.gameNumber] = answerTypes.SLOW;
+      } else {
+        this.state.results[this.gameNumber] = answerTypes.CORRECT;
+      }
     } else {
-      this.state.results[this.gameNumber] = `wrong`;
+      this.state.results[this.gameNumber] = answerTypes.WRONG;
     }
 
     this.updateStats(this.state);

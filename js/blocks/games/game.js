@@ -2,12 +2,7 @@ import GameView from './game-view';
 import moduleGreeting from '../greeting/greeting';
 import moduleStats from '../stats/stats';
 import {showScreen} from '../../utils';
-
-const gameTypes = {
-  GAME_1: `game1`,
-  GAME_2: `game2`,
-  GAME_3: `game3`
-};
+import {gameTypes} from './game-data';
 
 const firstGameCheck = (game) => {
   const question1 = game.element.querySelectorAll(`input[name=question1]`);
@@ -95,10 +90,12 @@ export default (data, state, gameNumber) => {
   const gameScreen = new GameView(data, state, gameNumber);
 
   gameScreen.gameEnd = () => {
+    gameScreen.stopTimer();
     showScreen(moduleStats(gameScreen.state));
   };
 
   gameScreen.onBackClick = () => {
+    gameScreen.stopTimer();
     showScreen(moduleGreeting);
   };
 

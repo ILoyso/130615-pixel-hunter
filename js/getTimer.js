@@ -1,5 +1,5 @@
 const getTimer = (time) => {
-  if (time === 0) {
+  if (time < 0) {
     return `time is over`;
   }
   if (typeof time !== `number`) {
