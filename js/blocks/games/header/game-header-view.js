@@ -19,32 +19,12 @@ export default class GameHeaderView extends AbstractView {
         <img src="img/logo_small.svg" width="101" height="44">
       </button>
     </div>
-    ${this.getTimerTemplate(this.state.time)}
+    <h1 class="game__timer">${this.state.time}</h1>
     <div class="game__lives">
-      ${this.getLivesTemplate(this.state.lives)}
+      ${drawHeart(this.state.lives > 2)}
+      ${drawHeart(this.state.lives > 1)}
+      ${drawHeart(this.state.lives > 0)}
     </div>
   </header>`;
-  }
-
-  getTimerTemplate(time) {
-    return `<h1 class="game__timer">${time}</h1>`;
-  }
-
-  getLivesTemplate(lives) {
-    return `${drawHeart(lives > 2)}
-      ${drawHeart(lives > 1)}
-      ${drawHeart(lives > 0)}`;
-  }
-
-  updateTime(time) {
-    if (time !== this.state.time) {
-      this.template.querySelector(`.game__timer`).innerHTML = time;
-    }
-  }
-
-  updateLives(lives) {
-    if (lives !== this.state.lives) {
-      this.template.querySelector(`.game__lives`).innerHTML = lives;
-    }
   }
 }

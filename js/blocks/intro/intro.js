@@ -8,5 +8,5 @@ introScreen.onButtonClick = () => {
   showScreen(moduleGreeting);
 };
 
-export default introScreen.element;
+export default introScreen;
 

@@ -1,10 +1,6 @@
-import moduleGreeting from './blocks/greeting/greeting';
-import moduleFirstGame from './blocks/games/level-1/level-1';
-import moduleSecondGame from './blocks/games/level-2/level-2';
-import moduleThirdGame from './blocks/games/level-3/level-3';
 import {showScreen} from './utils';
 import gameData from './blocks/games/game-data';
-import statsScreen from './blocks/stats/stats';
+import gameScreen from './blocks/games/game';
 
 const initialData = {
   time: 30,
@@ -14,54 +10,13 @@ const initialData = {
 
 export let userData = JSON.parse(JSON.stringify(initialData));
 
-export let gameNumber = 0;
-
 export const resetUserData = () => {
   userData = JSON.parse(JSON.stringify(initialData));
 };
 
-export const resetGame = () => {
-  gameNumber = 0;
-};
-
-export const changeStats = (result) => {
-  if (result) {
-    userData.results[gameNumber - 1] = `correct`;
-  } else {
-    userData.results[gameNumber - 1] = `wrong`;
-  }
-};
-
-export const changeLives = () => {
-  userData.lives--;
-};
-
-export const goBack = () => {
-  resetUserData();
-  resetGame();
-  showScreen(moduleGreeting);
-};
-
 export const letsPlay = () => {
-  if ((gameNumber === gameData.length) || (userData.lives < 1)) {
-    showScreen(statsScreen(userData));
-    return;
-  }
-
-  switch (gameData[gameNumber].type) {
-    case `game1`:
-      showScreen(moduleFirstGame(gameData[gameNumber], userData));
-      gameNumber++;
-      break;
-    case `game2`:
-      showScreen(moduleSecondGame(gameData[gameNumber], userData));
-      gameNumber++;
-      break;
-    case `game3`:
-      showScreen(moduleThirdGame(gameData[gameNumber], userData));
-      gameNumber++;
-      break;
-  }
+  resetUserData();
+  showScreen(gameScreen(gameData, userData));
 };
 
 export const getResultAnswers = (data) => {

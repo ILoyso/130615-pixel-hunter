@@ -1,5 +1,7 @@
 import RulesView from './rules-view';
-import {letsPlay, goBack} from '../../gameplay';
+import moduleGreeting from '../greeting/greeting';
+import {showScreen} from '../../utils';
+import {letsPlay} from '../../gameplay';
 
 const rulesScreen = new RulesView();
 
@@ -8,7 +10,7 @@ rulesScreen.onButtonClick = () => {
 };
 
 rulesScreen.onBackClick = () => {
-  goBack();
+  showScreen(moduleGreeting);
 };
 
-export default rulesScreen.element;
+export default rulesScreen;

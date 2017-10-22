@@ -14,5 +14,9 @@ export default class GameStatsView extends AbstractView {
       </ul>
     </div>`;
   }
+
+  updateStats(state) {
+    this.state = state;
+  }
 }
 

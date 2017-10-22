@@ -1,5 +1,7 @@
 import StatsView from './stats-view';
-import {userData, goBack, addToHistory} from '../../gameplay';
+import moduleGreeting from '../greeting/greeting';
+import {showScreen} from '../../utils';
+import {userData, addToHistory} from '../../gameplay';
 
 
 export default (state) => {
@@ -8,8 +10,8 @@ export default (state) => {
 
   statsScreen.onBackClick = () => {
     addToHistory(userData);
-    goBack();
+    showScreen(moduleGreeting);
   };
 
-  return statsScreen.element;
+  return statsScreen;
 };
