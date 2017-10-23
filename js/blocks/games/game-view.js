@@ -59,11 +59,11 @@ export default class GameView extends AbstractView {
     this.stopTimer();
     this.changeStats(result);
     this.changeLives(result);
-    this.gameNumber++;
-    this.updateLevel();
     if (this.gameStatus === gameStatus.PLAY) {
       this.startTimer();
     }
+    this.gameNumber++;
+    this.updateLevel();
   }
 
   updateHeader(state) {
@@ -90,6 +90,7 @@ export default class GameView extends AbstractView {
 
   stopTimer() {
     clearInterval(this.timer);
+    this.state.time = TIME_LIMIT;
   }
 
   updateStats(state) {
