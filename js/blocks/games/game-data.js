@@ -1,4 +1,28 @@
-export default [
+export const initialData = {
+  time: 30,
+  lives: 3,
+  results: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`]
+};
+
+export const gameTypes = {
+  GAME_1: `game1`,
+  GAME_2: `game2`,
+  GAME_3: `game3`
+};
+
+export const answerTypes = {
+  CORRECT: `correct`,
+  WRONG: `wrong`,
+  FAST: `fast`,
+  SLOW: `slow`
+};
+
+export const answerTimeLimits = {
+  SLOW: 10,
+  FAST: 20
+};
+
+export const gameData = [
   {
     type: `game1`,
     text: `Угадайте для каждого изображения фото или рисунок?`,

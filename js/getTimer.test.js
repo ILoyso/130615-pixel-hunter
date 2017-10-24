@@ -24,8 +24,8 @@ describe(`Get timer`, () => {
     assert.equal(newValue.value, expectedResult);
   });
 
-  it(`should return 'time is over' if time is 1`, () => {
-    const timer = getTimer(1);
+  it(`should return 'time is over' if time < 0`, () => {
+    const timer = getTimer(0);
     const newValue = timer.tick();
     const expectedResult = `time is over`;
     assert.equal(newValue, expectedResult);
