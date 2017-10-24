@@ -17,7 +17,7 @@ const firstGameCheck = (game) => {
       result2 = question2[i].getAttribute(`value`);
     }
   }
-  if (result1 && result2 && true) {
+  if (result1 && result2) {
     if ((result1 === game.currentData.answers[0].imgType) && (result2 === game.currentData.answers[1].imgType)) {
       game.nextLevel(true);
     } else {
@@ -34,7 +34,7 @@ const secondGameCheck = (game) => {
       result1 = question1[i].getAttribute(`value`);
     }
   }
-  if (result1 && true) {
+  if (result1) {
     if (result1 === game.currentData.answers[0].imgType) {
       game.nextLevel(true);
     } else {

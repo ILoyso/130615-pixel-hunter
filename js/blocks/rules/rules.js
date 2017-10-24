@@ -5,9 +5,7 @@ import {letsPlay} from '../../gameplay';
 
 const rulesScreen = new RulesView();
 
-rulesScreen.onButtonClick = () => {
-  letsPlay();
-};
+rulesScreen.onButtonClick = letsPlay;
 
 rulesScreen.onBackClick = () => {
   showScreen(moduleGreeting);

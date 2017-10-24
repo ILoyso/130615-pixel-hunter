@@ -7,15 +7,15 @@ export default class RulesView extends AbstractView {
 
   get template() {
     return String.raw`${header}
-  <div class="rules">
-    <h1 class="rules__title">${data.title}</h1>
-    <p class="rules__description">${data.text}</p>
-    <form class="rules__form">
-      <input class="rules__input" type="text" placeholder="Ваше Имя">
-      <button class="rules__button  continue" type="submit" disabled>Go!</button>
-    </form>
-  </div>
-  ${footer}`;
+      <div class="rules">
+        <h1 class="rules__title">${data.title}</h1>
+        <p class="rules__description">${data.text}</p>
+        <form class="rules__form">
+          <input class="rules__input" type="text" placeholder="Ваше Имя">
+          <button class="rules__button  continue" type="submit" disabled>Go!</button>
+        </form>
+      </div>
+      ${footer}`;
   }
 
   bind() {

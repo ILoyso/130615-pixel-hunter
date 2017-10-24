@@ -82,18 +82,18 @@ export default class StatsView extends AbstractView {
     this.gameBlock = this._templateGame(result, countOfAnswers);
 
     return String.raw`${header}
-    <div class="result">
-    
-      <h1>${game.resultTitle(countOfAnswers)}</h1>
-      <table class="result__table">
-        <tr>
-          <td class="result__number">1.</td>
-          ${this.gameBlock}
-        </tr>
-      </table>
-      ${this._templateHistory(game.gameHistory)}
-    </div>
-    ${footer}`;
+      <div class="result">
+      
+        <h1>${game.resultTitle(countOfAnswers)}</h1>
+        <table class="result__table">
+          <tr>
+            <td class="result__number">1.</td>
+            ${this.gameBlock}
+          </tr>
+        </table>
+        ${this._templateHistory(game.gameHistory)}
+      </div>
+      ${footer}`;
   }
 
   bind() {
