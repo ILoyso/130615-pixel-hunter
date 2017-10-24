@@ -69,9 +69,7 @@ export default class GameView extends AbstractView {
   updateHeader(state) {
     update(this.headerContainer, new GameHeaderView(state));
     this.back = this.element.querySelector(`.back`);
-    this.back.addEventListener(`click`, () => {
-      this.onBackClick();
-    });
+    this.back.addEventListener(`click`, this.onBackClick);
   }
 
   startTimer() {
@@ -119,9 +117,7 @@ export default class GameView extends AbstractView {
     }
 
     this.form = this.element.querySelector(`.game__content`);
-    this.form.addEventListener(`click`, (evt) => {
-      this.onFormClick(evt);
-    });
+    this.form.addEventListener(`click`, this.onFormClick);
   }
 
   changeStats(result) {
