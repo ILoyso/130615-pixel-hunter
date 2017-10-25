@@ -1,4 +1,3 @@
-import {showScreen} from './utils';
-import moduleIntro from './blocks/intro/intro';
+import App from './application';
 
-showScreen(moduleIntro);
+App.showIntro();

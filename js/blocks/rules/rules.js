@@ -1,14 +1,24 @@
 import RulesView from './rules-view';
-import moduleGreeting from '../greeting/greeting';
+import App from '../../application';
 import {showScreen} from '../../utils';
-import {letsPlay} from '../../gameplay';
 
-const rulesScreen = new RulesView();
+class RulesScreen {
+  constructor() {
+    this.view = new RulesView();
+  }
 
-rulesScreen.onButtonClick = letsPlay;
+  init() {
+    showScreen(this.view);
 
-rulesScreen.onBackClick = () => {
-  showScreen(moduleGreeting);
-};
+    this.view.onBackClick = () => {
+      App.showGreeting();
+    };
 
-export default rulesScreen;
+    this.view.onButtonClick = () => {
+      App.showGame();
+    };
+  }
+}
+
+export default new RulesScreen();
+

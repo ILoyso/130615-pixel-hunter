@@ -28,7 +28,6 @@ export default class RulesView extends AbstractView {
     });
 
     button.addEventListener(`click`, this.onButtonClick);
-
     back.addEventListener(`click`, this.onBackClick);
   }
 
