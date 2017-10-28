@@ -1,17 +1,20 @@
 import StatsView from './stats-view';
-import moduleGreeting from '../greeting/greeting';
+import App from '../../application';
 import {showScreen} from '../../utils';
 import {addToHistory} from '../../gameplay';
 
+class StatsScreen {
 
-export default (state) => {
+  init(state) {
+    this.view = new StatsView(state);
+    showScreen(this.view);
 
-  const statsScreen = new StatsView(state);
+    this.view.onBackClick = () => {
+      addToHistory(this.view.gameBlock);
+      App.showGreeting();
+    };
+  }
+}
 
-  statsScreen.onBackClick = () => {
-    addToHistory(statsScreen.gameBlock);
-    showScreen(moduleGreeting);
-  };
+export default new StatsScreen();
 
-  return statsScreen;
-};

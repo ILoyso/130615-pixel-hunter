@@ -1,11 +1,20 @@
 import GreetingView from './greeting-view';
-import moduleRules from '../rules/rules';
+import App from '../../application';
 import {showScreen} from '../../utils';
 
-const greetingScreen = new GreetingView();
+class GreetingScreen {
+  constructor() {
+    this.view = new GreetingView();
+  }
 
-greetingScreen.onButtonClick = () => {
-  showScreen(moduleRules);
-};
+  init() {
+    showScreen(this.view);
 
-export default greetingScreen;
+    this.view.onButtonClick = () => {
+      App.showRules();
+    };
+  }
+}
+
+export default new GreetingScreen();
+
