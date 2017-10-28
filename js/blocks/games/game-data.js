@@ -22,6 +22,14 @@ export const answerTimeLimits = {
   FAST: 20
 };
 
+export const gameStatus = {
+  PLAY: `play`,
+  END: `end`
+};
+
+export const TIMER_INTERVAL = 1000;
+export const TIME_LIMIT = 30;
+
 export const gameData = [
   {
     type: `game1`,

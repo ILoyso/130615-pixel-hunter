@@ -5,7 +5,6 @@ const drawHeart = (full) => {
 };
 
 export default class GameHeaderView extends AbstractView {
-
   constructor(state) {
     super();
     this.state = state;

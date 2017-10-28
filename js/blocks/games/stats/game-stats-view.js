@@ -1,7 +1,6 @@
 import AbstractView from '../../../view';
 
 export default class GameStatsView extends AbstractView {
-
   constructor(state) {
     super();
     this.state = state;
@@ -13,10 +12,6 @@ export default class GameStatsView extends AbstractView {
         ${[...this.state.results].map((level) => `<li class="stats__result stats__result--${level}"></li>`)}
       </ul>
     </div>`;
-  }
-
-  updateStats(state) {
-    this.state = state;
   }
 }
 

@@ -70,7 +70,7 @@ export default class StatsView extends AbstractView {
   }
 
   _templateGame(result, answers) {
-    if (result === game.gameResults.FAIL) {
+    if (result === game.finalGameResults.FAIL) {
       return this._templateFail(this.state, result);
     }
     return this._tamplateWin(this.state, answers);
@@ -98,7 +98,9 @@ export default class StatsView extends AbstractView {
 
   bind() {
     const back = this.element.querySelector(`.back`);
-    back.addEventListener(`click`, this.onBackClick);
+    back.addEventListener(`click`, () => {
+      this.onBackClick();
+    });
   }
 
   onBackClick() {

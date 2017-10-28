@@ -1,6 +1,8 @@
 import introScreen from './blocks/intro/intro';
 import greetingScreen from './blocks/greeting/greeting';
 import rulesScreen from './blocks/rules/rules';
+import gameScreen from './blocks/games/game';
+import statsScreen from './blocks/stats/stats';
 
 export default class Application {
 
@@ -16,12 +18,12 @@ export default class Application {
     rulesScreen.init();
   }
 
-  // static showGame() {
-  //   GameScreen.init();
-  // }
-  //
-  // static showStats(stats) {
-  //   statsScreen.init(stats);
-  // }
+  static showGame() {
+    gameScreen.init();
+  }
+
+  static showStats(stats) {
+    statsScreen.init(stats);
+  }
 
 }
