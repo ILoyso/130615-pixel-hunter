@@ -9,10 +9,10 @@ export default class GameOneView extends AbstractView {
 
   get template() {
     return String.raw`
-      <p class="game__task">${this.data.text}</p>
+      <p class="game__task">${this.data.question}</p>
       <form class="game__content">
         <div class="game__option game__option--full-img">
-          <img class="game__img" src="${this.data.answers[0].imgSrc}" alt="Option 1">
+          <img class="game__img" src="${this.data.answers[0].image.url}" alt="Option 1">
           <label class="game__answer game__answer--photo">
             <input name="question1" type="radio" value="photo">
             <span>Фото</span>
@@ -23,7 +23,7 @@ export default class GameOneView extends AbstractView {
           </label>
         </div>
         <div class="game__option game__option--full-img">
-          <img class="game__img" src="${this.data.answers[1].imgSrc}" alt="Option 2">
+          <img class="game__img" src="${this.data.answers[1].image.url}" alt="Option 2">
           <label class="game__answer  game__answer--photo">
             <input name="question2" type="radio" value="photo">
             <span>Фото</span>

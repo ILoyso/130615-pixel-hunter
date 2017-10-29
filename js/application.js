@@ -1,9 +1,11 @@
 import introScreen from './blocks/intro/intro';
 import greetingScreen from './blocks/greeting/greeting';
 import rulesScreen from './blocks/rules/rules';
-import gameScreen from './blocks/games/game';
+import GameScreen from './blocks/games/game';
 import statsScreen from './blocks/stats/stats';
 import {userData} from './utils/gameplay';
+import Loader from './loader';
+import adapt from './utils/data-adapter';
 
 const encodeTemplate = {
   UNKNOWN: 0,
@@ -62,17 +64,16 @@ const loadState = (dataString) => {
   }
 };
 
-const routes = {
-  [ControllerId.INTRO]: introScreen,
-  [ControllerId.GREETING]: greetingScreen,
-  [ControllerId.RULES]: rulesScreen,
-  [ControllerId.GAME]: gameScreen,
-  [ControllerId.STATS]: statsScreen
-};
-
 export default class Application {
 
-  static init() {
+  static init(gameData) {
+    Application.routes = {
+      [ControllerId.GREETING]: greetingScreen,
+      [ControllerId.RULES]: rulesScreen,
+      [ControllerId.GAME]: new GameScreen(gameData),
+      [ControllerId.STATS]: statsScreen
+    };
+
     const hashChangeHandler = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
@@ -83,7 +84,7 @@ export default class Application {
   }
 
   static changeHash(id, data) {
-    const controller = routes[id];
+    const controller = Application.routes[id];
     if (controller) {
       controller.init(loadState(data));
     }
@@ -102,11 +103,14 @@ export default class Application {
   }
 
   static showGame() {
-    location.hash = ControllerId.GAME;
+    Application.routes[ControllerId.GAME].init();
   }
 
   static showStats(stats) {
     location.hash = `${ControllerId.STATS}?${saveState(stats)}`;
   }
-
 }
+
+introScreen.init();
+
+Loader.loadData().then(adapt).then((gameData) => Application.init(gameData)).catch(window.console.error);
