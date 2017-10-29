@@ -1,4 +1,4 @@
-import {initialData, answerTypes, gameTypes} from '../blocks/games/game-data';
+import {initialData, answerTypes, gameTypes, gameDataAnswerType} from '../blocks/games/game-data';
 
 export let userData = JSON.parse(JSON.stringify(initialData));
 
@@ -12,8 +12,8 @@ export const getResultAnswers = (data) => {
   let fastAnswers = 0;
   let slowAnswers = 0;
 
-  for (let i = 0; i < data.results.length; i++) {
-    switch (data.results[i]) {
+  for (const result of data.results) {
+    switch (result) {
       case answerTypes.CORRECT:
         correctAnswers++;
         break;
@@ -117,16 +117,18 @@ const firstGameCheck = (game) => {
   const question2 = game.element.querySelectorAll(`input[name=question2]`);
   let result1 = false;
   let result2 = false;
-  for (let i = 0; i < question1.length; i++) {
-    if (question1[i].checked) {
-      result1 = question1[i].getAttribute(`value`);
+  for (const question of question1) {
+    if (question.checked) {
+      result1 = question.getAttribute(`value`);
     }
-    if (question2[i].checked) {
-      result2 = question2[i].getAttribute(`value`);
+  }
+  for (const question of question2) {
+    if (question.checked) {
+      result2 = question.getAttribute(`value`);
     }
   }
   if (result1 && result2) {
-    if ((result1 === game.currentData.answers[0].imgType) && (result2 === game.currentData.answers[1].imgType)) {
+    if ((result1 === game.currentData.answers[0].type) && (result2 === game.currentData.answers[1].type)) {
       return true;
     } else {
       return false;
@@ -138,13 +140,13 @@ const firstGameCheck = (game) => {
 const secondGameCheck = (game) => {
   const question1 = game.element.querySelectorAll(`input[name=question1]`);
   let result1 = false;
-  for (let i = 0; i < question1.length; i++) {
-    if (question1[i].checked) {
-      result1 = question1[i].getAttribute(`value`);
+  for (const question of question1) {
+    if (question.checked) {
+      result1 = question.getAttribute(`value`);
     }
   }
   if (result1) {
-    if (result1 === game.currentData.answers[0].imgType) {
+    if (result1 === game.currentData.answers[0].type) {
       return true;
     } else {
       return false;
@@ -154,8 +156,23 @@ const secondGameCheck = (game) => {
 };
 
 const findCorrectAnswer = (game) => {
+  let answerType;
+  let counter = 0;
+
+  game.currentData.answers.forEach((it) => {
+    if (it.type === gameDataAnswerType.PAINT) {
+      counter++;
+    }
+  });
+
+  if (counter > (game.currentData.answers.length / 2)) {
+    answerType = gameDataAnswerType.PHOTO;
+  } else {
+    answerType = gameDataAnswerType.PAINT;
+  }
+
   for (let i = 0; i < game.currentData.answers.length; i++) {
-    if (game.currentData.answers[i].imgType === `paint`) {
+    if (game.currentData.answers[i].type === answerType) {
       return i;
     }
   }
