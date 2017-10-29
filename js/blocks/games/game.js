@@ -1,6 +1,6 @@
 import {gameData, gameStatus, TIMER_INTERVAL, TIME_LIMIT} from './game-data';
-import {userData, noAnswer, resetUserData, gameCheck} from '../../gameplay';
-import {showScreen} from '../../utils';
+import {userData, noAnswer, resetUserData, gameCheck} from '../../utils/gameplay';
+import {showScreen} from '../../utils/utils';
 import App from '../../application';
 import GameModel from './game-model';
 import GameView from './game-view';
@@ -31,12 +31,16 @@ class GameScreen {
     const result = gameCheck(this.view, evt);
 
     if (result !== noAnswer) {
-      this.model.changeStats(result);
-      this.stopTimer();
-      this.model.changeLives(result);
-      this.model.nextLevel();
-      this.changeLevel();
+      this.onAnswer(result);
     }
+  }
+
+  onAnswer(result) {
+    this.model.changeStats(result);
+    this.stopTimer();
+    this.model.changeLives(result);
+    this.model.nextLevel();
+    this.changeLevel();
   }
 
   changeLevel() {
@@ -46,11 +50,13 @@ class GameScreen {
     }
   }
 
-
   tick() {
     this.timer = setInterval(() => {
       this.model.tick();
       this.view.updateHeader();
+      if (this.model.state.time === 0) {
+        this.onAnswer(false);
+      }
     }, TIMER_INTERVAL);
   }
 
@@ -58,7 +64,6 @@ class GameScreen {
     clearInterval(this.timer);
     this.model.state.time = TIME_LIMIT;
   }
-
 
   reset() {
     this.stopTimer();

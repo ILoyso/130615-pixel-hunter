@@ -1,6 +1,6 @@
 import GreetingView from './greeting-view';
 import App from '../../application';
-import {showScreen} from '../../utils';
+import {showScreen} from '../../utils/utils';
 
 class GreetingScreen {
   constructor() {
