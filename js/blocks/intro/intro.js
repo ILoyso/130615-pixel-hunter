@@ -1,6 +1,6 @@
 import IntroView from './intro-view';
 import App from '../../application';
-import {showScreen} from '../../utils';
+import {showScreen} from '../../utils/utils';
 
 class IntroScreen {
   constructor() {

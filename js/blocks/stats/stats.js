@@ -1,7 +1,7 @@
 import StatsView from './stats-view';
 import App from '../../application';
-import {showScreen} from '../../utils';
-import {addToHistory} from '../../gameplay';
+import {showScreen} from '../../utils/utils';
+import {addToHistory, resetUserData} from '../../utils/gameplay';
 
 class StatsScreen {
 
@@ -12,6 +12,7 @@ class StatsScreen {
     this.view.onBackClick = () => {
       addToHistory(this.view.gameBlock);
       App.showGreeting();
+      resetUserData();
     };
   }
 }

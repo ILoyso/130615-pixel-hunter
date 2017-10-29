@@ -1,4 +1,4 @@
-import {initialData, answerTypes, gameTypes} from './blocks/games/game-data';
+import {initialData, answerTypes, gameTypes} from '../blocks/games/game-data';
 
 export let userData = JSON.parse(JSON.stringify(initialData));
 

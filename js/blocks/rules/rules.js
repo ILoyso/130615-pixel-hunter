@@ -1,6 +1,6 @@
 import RulesView from './rules-view';
 import App from '../../application';
-import {showScreen} from '../../utils';
+import {showScreen} from '../../utils/utils';
 
 class RulesScreen {
   constructor() {
@@ -14,7 +14,8 @@ class RulesScreen {
       App.showGreeting();
     };
 
-    this.view.onButtonClick = () => {
+    this.view.onButtonClick = (evt) => {
+      evt.preventDefault();
       App.showGame();
     };
   }

@@ -1,7 +1,7 @@
 import AbstractView from '../../view';
 import header from '../header';
 import footer from '../footer';
-import * as game from '../../gameplay';
+import * as game from '../../utils/gameplay';
 
 export default class StatsView extends AbstractView {
 
