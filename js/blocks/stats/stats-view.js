@@ -5,9 +5,8 @@ import * as game from '../../utils/gameplay';
 
 export default class StatsView extends AbstractView {
 
-  constructor(state) {
+  constructor() {
     super();
-    this.state = state;
   }
 
   _templateFail(data, result) {
@@ -56,47 +55,47 @@ export default class StatsView extends AbstractView {
       <td colspan="5" class="result__total  result__total--final">${game.totalPoints(data, countOfAnswers)}</td>`;
   }
 
-  _templateHistory(historyData) {
-    let oldGames = ``;
-    for (let i = 0; i < historyData.length; i++) {
-      oldGames = `${oldGames} <table class="result__table">
+  _templateGame(result, answers, state) {
+    if (result === game.finalGameResults.FAIL) {
+      return this._templateFail(state, result);
+    }
+    return this._tamplateWin(state, answers);
+  }
+
+  showStats(data) {
+    let content = ``;
+    let mainTitle = ``;
+
+    for (let i = data.length - 1; i >= 0; i--) {
+      let countOfAnswers = game.getResultAnswers(data[i]);
+      let result = game.getGameResult(countOfAnswers);
+      let GameBlock = this._templateGame(result, countOfAnswers, data[i]);
+      if (i === data.length - 1) {
+        mainTitle = game.resultTitle(countOfAnswers);
+      }
+      content = `${content} <table class="result__table">
       <tr>
-        <td class="result__number">${i + 2}.</td>
-        ${historyData[i]}
+        <td class="result__number">${data.length - i}.</td>
+        ${GameBlock}
       </tr>
     </table>`;
     }
-    return oldGames;
-  }
 
-  _templateGame(result, answers) {
-    if (result === game.finalGameResults.FAIL) {
-      return this._templateFail(this.state, result);
-    }
-    return this._tamplateWin(this.state, answers);
+    this.resultsContainer.innerHTML = `
+      <h1>${mainTitle}</h1>
+      ${content}`;
   }
 
   get template() {
-    const countOfAnswers = game.getResultAnswers(this.state);
-    const result = game.getGameResult(countOfAnswers);
-    this.gameBlock = this._templateGame(result, countOfAnswers);
-
     return String.raw`${header}
-      <div class="result">
-      
-        <h1>${game.resultTitle(countOfAnswers)}</h1>
-        <table class="result__table">
-          <tr>
-            <td class="result__number">1.</td>
-            ${this.gameBlock}
-          </tr>
-        </table>
-        ${this._templateHistory(game.gameHistory)}
+      <div class="result">      
+        <p>Данные загружаются</p>
       </div>
       ${footer}`;
   }
 
   bind() {
+    this.resultsContainer = this.element.querySelector(`.result`);
     const back = this.element.querySelector(`.back`);
     back.addEventListener(`click`, () => {
       this.onBackClick();

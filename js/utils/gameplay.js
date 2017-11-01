@@ -60,10 +60,6 @@ export let gameHistory = [];
 
 export const addToHistory = (data) => {
   gameHistory.push(data);
-
-  if (gameHistory.length > 2) {
-    gameHistory.shift();
-  }
   return gameHistory;
 };
 

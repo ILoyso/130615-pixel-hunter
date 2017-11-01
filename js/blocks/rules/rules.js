@@ -16,6 +16,7 @@ class RulesScreen {
 
     this.view.onButtonClick = (evt) => {
       evt.preventDefault();
+      App.userName = this.view.inputText.value;
       App.showGame();
     };
   }

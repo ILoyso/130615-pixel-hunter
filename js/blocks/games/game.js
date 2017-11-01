@@ -5,12 +5,14 @@ import App from '../../application';
 import GameModel from './game-model';
 import GameView from './game-view';
 
+
 class GameScreen {
   constructor(data = gameData) {
     this.model = new GameModel(data);
     this.view = new GameView(this.model);
 
     this.view.onBackClick = () => this.onBackClick();
+    this.view.onYesClick = () => this.onYesClick();
     this.view.onFormClick = (evt) => this.onFormClick(evt);
     this.model.end = (state) => this.end(state);
   }
@@ -19,10 +21,15 @@ class GameScreen {
     this.model.start();
     this.model.update(state);
     showScreen(this.view);
+    this.view.hideWaiting();
     this.changeLevel();
   }
 
   onBackClick() {
+    this.view.showWarning();
+  }
+
+  onYesClick() {
     this.reset();
     App.showGreeting();
   }
@@ -72,6 +79,7 @@ class GameScreen {
   }
 
   end(state) {
+    this.view.showWaiting();
     App.showStats(state);
     this.reset();
   }

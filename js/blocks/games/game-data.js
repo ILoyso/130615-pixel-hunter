@@ -36,101 +36,101 @@ export const TIMER_INTERVAL = 1000;
 export const TIME_LIMIT = 30;
 
 export const gameData = [
-  // {
-  //   type: `two-of-two`,
-  //   question: `Угадайте для каждого изображения фото или рисунок?`,
-  //   answers: [
-  //     {
-  //       image: {
-  //         url: `https://k42.kn3.net/D2F0370D6.jpg`
-  //       },
-  //       type: `paint`
-  //     },
-  //     {
-  //       image: {
-  //         url: `https://i.imgur.com/RpikbHf.jpg`
-  //       },
-  //       type: `photo`
-  //     }
-  //   ]
-  // },
-  //
-  // {
-  //   type: `two-of-two`,
-  //   question: `Угадайте для каждого изображения фото или рисунок?`,
-  //   answers: [
-  //     {
-  //       image: {
-  //         url: `https://i.imgur.com/aeGiSux.jpg`
-  //       },
-  //       type: `photo`
-  //     },
-  //     {
-  //       image: {
-  //         url: `https://i.imgur.com/PDotHBD.jpg`
-  //       },
-  //       type: `paint`
-  //     }
-  //   ]
-  // },
-  //
-  // {
-  //   type: `two-of-two`,
-  //   question: `Угадайте для каждого изображения фото или рисунок?`,
-  //   answers: [
-  //     {
-  //       image: {
-  //         url: `https://i.imgur.com/BkPQMuI.jpg`
-  //       },
-  //       type: `photo`
-  //     },
-  //     {
-  //       image: {
-  //         url: `https://i.imgur.com/ceCoH2J.jpg`
-  //       },
-  //       type: `paint`
-  //     }
-  //   ]
-  // },
-  //
-  // {
-  //   type: `tinder-like`,
-  //   question: `Угадай, фото или рисунок?`,
-  //   answers: [
-  //     {
-  //       image: {
-  //         url: `https://i.imgur.com/vu9P5mN.jpg`
-  //       },
-  //       type: `photo`
-  //     }
-  //   ]
-  // },
-  //
-  // {
-  //   type: `tinder-like`,
-  //   question: `Угадай, фото или рисунок?`,
-  //   answers: [
-  //     {
-  //       image: {
-  //         url: `https://i.imgur.com/HuKwvSf.png`
-  //       },
-  //       type: `paint`
-  //     }
-  //   ]
-  // },
-  //
-  // {
-  //   type: `tinder-like`,
-  //   question: `Угадай, фото или рисунок?`,
-  //   answers: [
-  //     {
-  //       image: {
-  //         url: `https://i.imgur.com/z9tIaTD.jpg`
-  //       },
-  //       type: `photo`
-  //     }
-  //   ]
-  // },
+  {
+    type: `two-of-two`,
+    question: `Угадайте для каждого изображения фото или рисунок?`,
+    answers: [
+      {
+        image: {
+          url: `https://k42.kn3.net/D2F0370D6.jpg`
+        },
+        type: `paint`
+      },
+      {
+        image: {
+          url: `https://i.imgur.com/RpikbHf.jpg`
+        },
+        type: `photo`
+      }
+    ]
+  },
+
+  {
+    type: `two-of-two`,
+    question: `Угадайте для каждого изображения фото или рисунок?`,
+    answers: [
+      {
+        image: {
+          url: `https://i.imgur.com/aeGiSux.jpg`
+        },
+        type: `photo`
+      },
+      {
+        image: {
+          url: `https://i.imgur.com/PDotHBD.jpg`
+        },
+        type: `paint`
+      }
+    ]
+  },
+
+  {
+    type: `two-of-two`,
+    question: `Угадайте для каждого изображения фото или рисунок?`,
+    answers: [
+      {
+        image: {
+          url: `https://i.imgur.com/BkPQMuI.jpg`
+        },
+        type: `photo`
+      },
+      {
+        image: {
+          url: `https://i.imgur.com/ceCoH2J.jpg`
+        },
+        type: `paint`
+      }
+    ]
+  },
+
+  {
+    type: `tinder-like`,
+    question: `Угадай, фото или рисунок?`,
+    answers: [
+      {
+        image: {
+          url: `https://i.imgur.com/vu9P5mN.jpg`
+        },
+        type: `photo`
+      }
+    ]
+  },
+
+  {
+    type: `tinder-like`,
+    question: `Угадай, фото или рисунок?`,
+    answers: [
+      {
+        image: {
+          url: `https://i.imgur.com/HuKwvSf.png`
+        },
+        type: `paint`
+      }
+    ]
+  },
+
+  {
+    type: `tinder-like`,
+    question: `Угадай, фото или рисунок?`,
+    answers: [
+      {
+        image: {
+          url: `https://i.imgur.com/z9tIaTD.jpg`
+        },
+        type: `photo`
+      }
+    ]
+  },
 
   {
     type: `one-of-three`,
