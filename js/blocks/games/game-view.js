@@ -78,6 +78,7 @@ export default class GameView extends AbstractView {
   updateHeader() {
     update(this.headerContainer, new HeaderView(this.model.state));
     this.back = this.element.querySelector(`.back`);
+    this.timer = this.element.querySelector(`.game__timer`);
     this.back.addEventListener(`click`, () => {
       this.onBackClick();
     });

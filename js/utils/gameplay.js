@@ -74,7 +74,7 @@ const finalResult = {
 };
 
 export const getGameResult = (data) => {
-  if (data.wrong > 2) {
+  if (data.wrong > 3) {
     return `fail`;
   } else {
     return `win`;
@@ -82,7 +82,7 @@ export const getGameResult = (data) => {
 };
 
 export const resultTitle = (data) => {
-  if (data.wrong > 2) {
+  if (data.wrong > 3) {
     return finalResult.FAIL;
   } else {
     return finalResult.WIN;

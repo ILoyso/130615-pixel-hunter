@@ -67,4 +67,7 @@ export default class Application {
 
 introScreen.init();
 
-Loader.loadData().then(adapt).then((gameData) => Application.init(gameData)).catch(window.console.error);
+Loader.loadData().
+    then(adapt).
+    then((gameData) => Application.init(gameData)).
+    catch(window.console.error);

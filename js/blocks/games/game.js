@@ -31,6 +31,7 @@ class GameScreen {
 
   onYesClick() {
     this.reset();
+    this.view.hideWarning();
     App.showGreeting();
   }
 
@@ -47,6 +48,7 @@ class GameScreen {
     this.stopTimer();
     this.model.changeLives(result);
     this.model.nextLevel();
+    this.stopTimerWarning();
     this.changeLevel();
   }
 
@@ -61,6 +63,12 @@ class GameScreen {
     this.timer = setInterval(() => {
       this.model.tick();
       this.view.updateHeader();
+      this.stopTimerWarning();
+      if (this.model.state.time <= 5) {
+        this.timerWarning = setInterval(() => {
+          this.view.timer.classList.toggle(`colorize`);
+        }, 500);
+      }
       if (this.model.state.time === 0) {
         this.onAnswer(false);
       }
@@ -70,6 +78,10 @@ class GameScreen {
   stopTimer() {
     clearInterval(this.timer);
     this.model.state.time = TIME_LIMIT;
+  }
+
+  stopTimerWarning() {
+    clearInterval(this.timerWarning);
   }
 
   reset() {

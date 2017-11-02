@@ -67,9 +67,9 @@ export default class StatsView extends AbstractView {
     let mainTitle = ``;
 
     for (let i = data.length - 1; i >= 0; i--) {
-      let countOfAnswers = game.getResultAnswers(data[i]);
-      let result = game.getGameResult(countOfAnswers);
-      let GameBlock = this._templateGame(result, countOfAnswers, data[i]);
+      const countOfAnswers = game.getResultAnswers(data[i]);
+      const result = game.getGameResult(countOfAnswers);
+      const GameBlock = this._templateGame(result, countOfAnswers, data[i]);
       if (i === data.length - 1) {
         mainTitle = game.resultTitle(countOfAnswers);
       }
