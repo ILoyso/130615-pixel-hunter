@@ -1,9 +1,10 @@
-import {gameData, gameStatus, TIMER_INTERVAL, TIME_LIMIT} from './game-data';
+import {gameData, gameStatus, TIMER_INTERVAL, TIME_LIMIT, TIME_WARNING_START, TIME_WARNING_INTERVAL} from './game-data';
 import {userData, noAnswer, resetUserData, gameCheck} from '../../utils/gameplay';
 import {showScreen} from '../../utils/utils';
 import App from '../../application';
 import GameModel from './game-model';
 import GameView from './game-view';
+
 
 class GameScreen {
   constructor(data = gameData) {
@@ -11,6 +12,7 @@ class GameScreen {
     this.view = new GameView(this.model);
 
     this.view.onBackClick = () => this.onBackClick();
+    this.view.onYesClick = () => this.onYesClick();
     this.view.onFormClick = (evt) => this.onFormClick(evt);
     this.model.end = (state) => this.end(state);
   }
@@ -19,11 +21,17 @@ class GameScreen {
     this.model.start();
     this.model.update(state);
     showScreen(this.view);
+    this.view.hideWaiting();
     this.changeLevel();
   }
 
   onBackClick() {
+    this.view.showWarning();
+  }
+
+  onYesClick() {
     this.reset();
+    this.view.hideWarning();
     App.showGreeting();
   }
 
@@ -40,6 +48,7 @@ class GameScreen {
     this.stopTimer();
     this.model.changeLives(result);
     this.model.nextLevel();
+    this.stopTimerWarning();
     this.changeLevel();
   }
 
@@ -54,6 +63,12 @@ class GameScreen {
     this.timer = setInterval(() => {
       this.model.tick();
       this.view.updateHeader();
+      this.stopTimerWarning();
+      if (this.model.state.time <= TIME_WARNING_START) {
+        this.timerWarning = setInterval(() => {
+          this.view.timer.classList.toggle(`colorize`);
+        }, TIME_WARNING_INTERVAL);
+      }
       if (this.model.state.time === 0) {
         this.onAnswer(false);
       }
@@ -65,6 +80,10 @@ class GameScreen {
     this.model.state.time = TIME_LIMIT;
   }
 
+  stopTimerWarning() {
+    clearInterval(this.timerWarning);
+  }
+
   reset() {
     this.stopTimer();
     resetUserData();
@@ -72,6 +91,7 @@ class GameScreen {
   }
 
   end(state) {
+    this.view.showWaiting();
     App.showStats(state);
     this.reset();
   }

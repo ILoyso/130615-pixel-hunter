@@ -33,7 +33,7 @@ export default class GameModel {
     if (!result) {
       state.lives--;
     }
-    if (state.lives === 0) {
+    if (state.lives < 0) {
       this.end(this.state);
     }
     this.update(state);

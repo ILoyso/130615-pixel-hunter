@@ -20,11 +20,11 @@ export default class RulesView extends AbstractView {
 
   bind() {
     const button = this.element.querySelector(`.rules__button`);
-    const inputText = this.element.querySelector(`.rules__input`);
+    this.inputText = this.element.querySelector(`.rules__input`);
     const back = this.element.querySelector(`.back`);
 
-    inputText.addEventListener(`keyup`, () => {
-      button.disabled = (inputText.value.length === 0);
+    this.inputText.addEventListener(`keyup`, () => {
+      button.disabled = (this.inputText.value.length === 0);
     });
 
     button.addEventListener(`click`, (evt) => {
