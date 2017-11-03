@@ -34,6 +34,8 @@ export const gameDataAnswerType = {
 
 export const TIMER_INTERVAL = 1000;
 export const TIME_LIMIT = 30;
+export const TIME_WARNING_START = 5;
+export const TIME_WARNING_INTERVAL = 500;
 
 export const gameData = [
   {

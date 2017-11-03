@@ -1,4 +1,4 @@
-import {gameData, gameStatus, TIMER_INTERVAL, TIME_LIMIT} from './game-data';
+import {gameData, gameStatus, TIMER_INTERVAL, TIME_LIMIT, TIME_WARNING_START, TIME_WARNING_INTERVAL} from './game-data';
 import {userData, noAnswer, resetUserData, gameCheck} from '../../utils/gameplay';
 import {showScreen} from '../../utils/utils';
 import App from '../../application';
@@ -64,10 +64,10 @@ class GameScreen {
       this.model.tick();
       this.view.updateHeader();
       this.stopTimerWarning();
-      if (this.model.state.time <= 5) {
+      if (this.model.state.time <= TIME_WARNING_START) {
         this.timerWarning = setInterval(() => {
           this.view.timer.classList.toggle(`colorize`);
-        }, 500);
+        }, TIME_WARNING_INTERVAL);
       }
       if (this.model.state.time === 0) {
         this.onAnswer(false);
