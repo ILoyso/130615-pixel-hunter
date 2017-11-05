@@ -1,4 +1,4 @@
-import {gameData, gameStatus, TIMER_INTERVAL, TIME_LIMIT, TIME_WARNING_START, TIME_WARNING_INTERVAL} from './game-data';
+import {gameStatus, TIMER_INTERVAL, TIME_LIMIT, TIME_WARNING_START, TIME_WARNING_INTERVAL} from './game-data';
 import {userData, noAnswer, resetUserData, gameCheck} from '../../utils/gameplay';
 import {showScreen} from '../../utils/utils';
 import App from '../../application';
@@ -7,7 +7,7 @@ import GameView from './game-view';
 
 
 class GameScreen {
-  constructor(data = gameData) {
+  constructor(data) {
     this.model = new GameModel(data);
     this.view = new GameView(this.model);
 

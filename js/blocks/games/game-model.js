@@ -1,8 +1,8 @@
-import {answerTypes, gameStatus, answerTimeLimits, gameData} from './game-data';
+import {answerTypes, gameStatus, answerTimeLimits} from './game-data';
 import {getTimer} from '../../utils/gameplay';
 
 export default class GameModel {
-  constructor(data = gameData) {
+  constructor(data) {
     this.data = data;
   }
 

@@ -1,31 +1,73 @@
 import AbstractView from '../../view';
 import header from '../header';
 import footer from '../footer';
-import * as game from '../../utils/gameplay';
+import * as game from '../../utils/statistics';
 
 export default class StatsView extends AbstractView {
-
   constructor() {
     super();
+  }
+
+  get template() {
+    return String.raw`${header}
+      <div class="result">      
+        <p>Данные загружаются</p>
+      </div>
+      ${footer}`;
+  }
+
+  bind() {
+    this.resultsContainer = this.element.querySelector(`.result`);
+    const back = this.element.querySelector(`.back`);
+    back.addEventListener(`click`, () => {
+      this.onBackClick();
+    });
+  }
+
+  showStats(data) {
+    let content = ``;
+    let mainTitle = ``;
+
+    for (let i = data.length - 1; i >= 0; i--) {
+      const countOfAnswers = game.getResultAnswers(data[i]);
+      const result = game.getGameResult(countOfAnswers);
+      const GameBlock = this._templateGame(result, countOfAnswers, data[i]);
+      if (i === data.length - 1) {
+        mainTitle = game.getResultTitle(countOfAnswers);
+      }
+      content = `${content} <table class="result__table">
+      <tr>
+        <td class="result__number">${data.length - i}.</td>
+        ${GameBlock}
+      </tr>
+    </table>`;
+    }
+
+    this.resultsContainer.innerHTML = `
+      <h1>${mainTitle}</h1>
+      ${content}`;
+  }
+
+  _templateStats(data) {
+    return String.raw`
+       <ul class="stats">
+          ${[...data.results].map((level) => `<li class="stats__result stats__result--${level}"></li>`)}
+       </ul>`;
   }
 
   _templateFail(data, result) {
     return String.raw`
       <td>
-         <ul class="stats">
-            ${[...data.results].map((level) => `<li class="stats__result stats__result--${level}"></li>`)}
-         </ul>
+         ${this._templateStats(data)}
       </td>
       <td class="result__total"></td>
       <td class="result__total  result__total--final">${result}</td>`;
   }
 
-  _tamplateWin(data, countOfAnswers) {
+  _templateWin(data, countOfAnswers) {
     return String.raw`
       <td colspan="2">
-         <ul class="stats">
-              ${[...data.results].map((level) => `<li class="stats__result stats__result--${level}"></li>`)}
-         </ul>
+         ${this._templateStats(data)}
       </td>
       <td class="result__points">×&nbsp;100</td>
       <td class="result__total">${game.correctPoints(countOfAnswers)}</td>
@@ -59,50 +101,11 @@ export default class StatsView extends AbstractView {
     if (result === game.finalGameResults.FAIL) {
       return this._templateFail(state, result);
     }
-    return this._tamplateWin(state, answers);
-  }
-
-  showStats(data) {
-    let content = ``;
-    let mainTitle = ``;
-
-    for (let i = data.length - 1; i >= 0; i--) {
-      const countOfAnswers = game.getResultAnswers(data[i]);
-      const result = game.getGameResult(countOfAnswers);
-      const GameBlock = this._templateGame(result, countOfAnswers, data[i]);
-      if (i === data.length - 1) {
-        mainTitle = game.resultTitle(countOfAnswers);
-      }
-      content = `${content} <table class="result__table">
-      <tr>
-        <td class="result__number">${data.length - i}.</td>
-        ${GameBlock}
-      </tr>
-    </table>`;
-    }
-
-    this.resultsContainer.innerHTML = `
-      <h1>${mainTitle}</h1>
-      ${content}`;
-  }
-
-  get template() {
-    return String.raw`${header}
-      <div class="result">      
-        <p>Данные загружаются</p>
-      </div>
-      ${footer}`;
-  }
-
-  bind() {
-    this.resultsContainer = this.element.querySelector(`.result`);
-    const back = this.element.querySelector(`.back`);
-    back.addEventListener(`click`, () => {
-      this.onBackClick();
-    });
+    return this._templateWin(state, answers);
   }
 
   onBackClick() {
 
   }
+
 }

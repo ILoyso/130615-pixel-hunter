@@ -30,24 +30,6 @@ export default class GameView extends AbstractView {
     ${footer}`;
   }
 
-  _warningTemplate() {
-    return String.raw`
-    <div class="game-warning">Данные текущей игры будут потеряны.
-      Вы уверенны, что хотите продолжить?
-      <div class="game-warning__buttons">
-        <button class="game-warning__button game-warning__button--yes" type="button">Да, покинуть игру</button>
-        <button class="game-warning__button game-warning__button--no" type="button">Нет, продолжаем играть</button>
-      </div>
-    </div>`;
-  }
-
-  _waitingTemplate() {
-    return String.raw`
-    <div class="wait">
-      <div class="wait__loader"></div>
-    </div>`;
-  }
-
   bind() {
     this.headerContainer = this.element.querySelector(`.header`);
     this.levelContainer = this.element.querySelector(`.level`);
@@ -111,6 +93,24 @@ export default class GameView extends AbstractView {
     });
   }
 
+  _warningTemplate() {
+    return String.raw`
+    <div class="game-warning">Данные текущей игры будут потеряны.
+      Вы уверенны, что хотите продолжить?
+      <div class="game-warning__buttons">
+        <button class="game-warning__button game-warning__button--yes" type="button">Да, покинуть игру</button>
+        <button class="game-warning__button game-warning__button--no" type="button">Нет, продолжаем играть</button>
+      </div>
+    </div>`;
+  }
+
+  _waitingTemplate() {
+    return String.raw`
+    <div class="wait">
+      <div class="wait__loader"></div>
+    </div>`;
+  }
+
   showWarning() {
     this.warning.classList.add(`active`);
   }
@@ -138,4 +138,5 @@ export default class GameView extends AbstractView {
   onFormClick() {
 
   }
+
 }

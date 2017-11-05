@@ -1,4 +1,3 @@
-import introScreen from './blocks/intro/intro';
 import greetingScreen from './blocks/greeting/greeting';
 import rulesScreen from './blocks/rules/rules';
 import GameScreen from './blocks/games/game';
@@ -7,7 +6,6 @@ import Loader from './loader';
 import adapt from './utils/data-adapter';
 
 const ControllerId = {
-  INTRO: ``,
   GREETING: `greeting`,
   RULES: `rules`,
   GAME: `game`,
@@ -31,7 +29,9 @@ export default class Application {
       Application.changeHash(id);
     };
     window.addEventListener(`hashchange`, hashChangeHandler);
-    hashChangeHandler();
+    if (gameData) {
+      hashChangeHandler();
+    }
   }
 
   static changeHash(id) {
@@ -65,9 +65,11 @@ export default class Application {
   }
 }
 
-introScreen.init();
-
+greetingScreen.init();
 Loader.loadData()
     .then(adapt)
-    .then((gameData) => Application.init(gameData))
+    .then((gameData) => {
+      Application.init(gameData);
+      greetingScreen.onFinishLoading();
+    })
     .catch(window.console.error);

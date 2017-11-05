@@ -14,6 +14,12 @@ class GreetingScreen {
       App.showRules();
     };
   }
+
+  onFinishLoading() {
+    const activeBlockClass = `active`;
+    this.view.introBlock.classList.remove(activeBlockClass);
+    this.view.greetingBlock.classList.add(activeBlockClass);
+  }
 }
 
 export default new GreetingScreen();

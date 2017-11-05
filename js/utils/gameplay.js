@@ -1,92 +1,9 @@
-import {initialData, answerTypes, gameTypes, gameDataAnswerType} from '../blocks/games/game-data';
+import {initialData, gameTypes, gameDataAnswerType} from '../blocks/games/game-data';
 
 export let userData = JSON.parse(JSON.stringify(initialData));
 
 export const resetUserData = () => {
   userData = JSON.parse(JSON.stringify(initialData));
-};
-
-export const getResultAnswers = (data) => {
-  let correctAnswers = 0;
-  let wrongAnswers = 0;
-  let fastAnswers = 0;
-  let slowAnswers = 0;
-
-  for (const result of data.results) {
-    switch (result) {
-      case answerTypes.CORRECT:
-        correctAnswers++;
-        break;
-      case answerTypes.WRONG:
-        wrongAnswers++;
-        break;
-      case answerTypes.FAST:
-        fastAnswers++;
-        break;
-      case answerTypes.SLOW:
-        slowAnswers++;
-        break;
-    }
-  }
-  return {
-    correct: correctAnswers,
-    wrong: wrongAnswers,
-    fast: fastAnswers,
-    slow: slowAnswers
-  };
-};
-
-export const correctPoints = (data) => {
-  return data.correct * 100 + data.fast * 100 + data.slow * 100;
-};
-
-export const fastPoints = (data) => {
-  return data.fast * 50;
-};
-
-export const livePoints = (data) => {
-  return data.lives * 50;
-};
-
-export const slowPoints = (data) => {
-  return data.slow * -50;
-};
-
-export const totalPoints = (userResults, finalResults) => {
-  return correctPoints(finalResults) + fastPoints(finalResults) + livePoints(userResults) + slowPoints(finalResults);
-};
-
-export let gameHistory = [];
-
-export const addToHistory = (data) => {
-  gameHistory.push(data);
-  return gameHistory;
-};
-
-export const finalGameResults = {
-  FAIL: `fail`,
-  WIN: `win`
-};
-
-const finalResult = {
-  FAIL: `FAIL`,
-  WIN: `Победа`
-};
-
-export const getGameResult = (data) => {
-  if (data.wrong > 3) {
-    return `fail`;
-  } else {
-    return `win`;
-  }
-};
-
-export const resultTitle = (data) => {
-  if (data.wrong > 3) {
-    return finalResult.FAIL;
-  } else {
-    return finalResult.WIN;
-  }
 };
 
 export const getTimer = (time) => {
@@ -124,11 +41,7 @@ const firstGameCheck = (game) => {
     }
   }
   if (result1 && result2) {
-    if ((result1 === game.currentData.answers[0].type) && (result2 === game.currentData.answers[1].type)) {
-      return true;
-    } else {
-      return false;
-    }
+    return (result1 === game.currentData.answers[0].type) && (result2 === game.currentData.answers[1].type);
   }
   return noAnswer;
 };
@@ -142,11 +55,7 @@ const secondGameCheck = (game) => {
     }
   }
   if (result1) {
-    if (result1 === game.currentData.answers[0].type) {
-      return true;
-    } else {
-      return false;
-    }
+    return result1 === game.currentData.answers[0].type;
   }
   return noAnswer;
 };
@@ -167,12 +76,11 @@ const findCorrectAnswer = (game) => {
     answerType = gameDataAnswerType.PAINT;
   }
 
-  for (let i = 0; i < game.currentData.answers.length; i++) {
-    if (game.currentData.answers[i].type === answerType) {
-      return i;
-    }
-  }
-  return false;
+  const correctdAnswer = game.currentData.answers.findIndex((el) => {
+    return el.type === answerType;
+  });
+
+  return correctdAnswer;
 };
 
 const thirdGameCheck = (game, evt) => {
@@ -180,15 +88,10 @@ const thirdGameCheck = (game, evt) => {
   if (evt.target.classList.contains(`game__option`)) {
     evt.target.classList.add(`game__option--selected`);
 
-    for (let i = 0; i < answers.length; i++) {
-      if (answers[i].classList.contains(`game__option--selected`)) {
-        if (i === findCorrectAnswer(game)) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    }
+    const selectedAnswer = Array.from(answers).findIndex((el) => {
+      return el.classList.contains(`game__option--selected`);
+    });
+    return selectedAnswer === findCorrectAnswer(game);
   }
   return noAnswer;
 };
